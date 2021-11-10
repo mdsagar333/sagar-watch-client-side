@@ -1,38 +1,22 @@
-.App {
-  text-align: center;
+body {
+  font-family: "Jost", sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.banner-container {
+  background: url(https://wpbingosite.com/wordpress/wrish/wp-content/uploads/2021/10/slider2.jpg);
+  height: 80vh;
+  background-position: center;
+  background-size: cover;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.custom_letter_spacing {
+  letter-spacing: 1.5px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.custom_base_color {
+  color: #a07a4a;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.footer-container {
+  background-color: #ebebeb;
 }
