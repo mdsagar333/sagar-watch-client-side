@@ -4,6 +4,7 @@ import { FaRegEnvelope, FaFacebookF, FaPinterestP } from "react-icons/fa";
 import { BsTwitter } from "react-icons/bs";
 import { ImGooglePlus } from "react-icons/im";
 import { FiSend } from "react-icons/fi";
+import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <footer className="footer-container mt-5">
@@ -29,25 +30,37 @@ const Footer = () => {
               <h5 className="mb-3 custom_base_color">SHARE WITH US</h5>
               <p>Special offers on social networks</p>
               <div className="social-icons-container">
-                <a href="" className="btn btn-outline-dark mx-1">
+                <Link
+                  to="https://web.facebook.com/"
+                  className="btn btn-outline-dark mx-1"
+                >
                   <FaFacebookF />
-                </a>
-                <a href="" className="btn btn-outline-dark mx-1">
+                </Link>
+                <Link
+                  to="https://www.pinterest.com/"
+                  className="btn btn-outline-dark mx-1"
+                >
                   <FaPinterestP />
-                </a>
-                <a href="" className="btn btn-outline-dark mx-1">
+                </Link>
+                <Link
+                  to="https://www.google.com/"
+                  className="btn btn-outline-dark mx-1"
+                >
                   <ImGooglePlus />
-                </a>
-                <a href="" className="btn btn-outline-dark mx-1">
+                </Link>
+                <Link
+                  to="https://twitter.com/"
+                  className="btn btn-outline-dark mx-1"
+                >
                   <BsTwitter />
-                </a>
+                </Link>
               </div>
             </div>
           </section>
           <section className="col-12 col-md-3">
             <div className="footer-content">
               <h5 className="mb-3 custom_base_color">NEWSLETTER</h5>
-              <p>Subscribe our newsletter</p>
+              <p className="text-capitalize">Subscribe our newsletter</p>
               <div className="input-group mb-3">
                 <input
                   type="text"
@@ -69,20 +82,37 @@ const Footer = () => {
           <section className="col-12 col-md-3">
             <div className="footer-content">
               <h5 className="mb-3 custom_base_color">#INSTAGRAM</h5>
-              <p>Our instagram gallery</p>
+              <p className="text-capitalize">Our instagram gallery</p>
+              <div className="instagram_photo d-flex">
+                <Link to="https://www.instagram.com/" target="_blank">
+                  <div className="footer_img footer_img_one"></div>
+                </Link>
+                <Link to="https://www.instagram.com/" target="_blank">
+                  <div className="footer_img footer_img_two"></div>
+                </Link>
+                <Link to="https://www.instagram.com/" target="_blank">
+                  <div className="footer_img footer_img_three"></div>
+                </Link>
+                <Link to="https://www.instagram.com/" target="_blank">
+                  <div className="footer_img footer_img_four"></div>
+                </Link>
+              </div>
             </div>
           </section>
         </div>
       </div>
-      <section className="footer-quote text-center my-4">
-        <p>
+      <section className="footer-quote text-center my-4 px-4">
+        <div className="footer-quote_underline"></div>
+        <p className="pt-4">
           Life is made up of two things Time and Love.Time is free but it is
           priceless. As Carl Sandburg-
           <br />
           <q>
-            Time is the coin of your life. It is the only coin you have, and
-            only you can determine how it will be spent. Be careful lest you let
-            other people spend it for you.
+            <span className="custom_base_color">
+              Time is the coin of your life. It is the only coin you have, and
+              only you can determine how it will be spent. Be careful lest you
+              let other people spend it for you.
+            </span>
           </q>
         </p>
       </section>
