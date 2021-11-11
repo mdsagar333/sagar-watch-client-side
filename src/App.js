@@ -9,8 +9,13 @@ import Navbar from "./Pages/Shared/Navbar/Navbar";
 import Footer from "./Pages/Shared/Footer/Footer";
 import ProductDetails from "./Pages/ProductDetails/ProductDetails";
 import Order from "./Pages/PlaceOrder/Order";
+import useContextAPI from "./Hooks/useContextAPI";
+import PrivateRoute from "./Pages/Shared/PrivateRoute/PrivateRoute";
+import Dashboard from "./Pages/Dashboard/Dashboard";
 
 function App() {
+  const { userLoading } = useContextAPI();
+
   return (
     <Router>
       <Navbar />
@@ -33,9 +38,12 @@ function App() {
         <Route exact path="/products">
           <Products></Products>
         </Route>
-        <Route path="/product/:id">
+        <PrivateRoute path="/product/:id">
           <ProductDetails></ProductDetails>
-        </Route>
+        </PrivateRoute>
+        <PrivateRoute path="/dashboard">
+          <Dashboard></Dashboard>
+        </PrivateRoute>
         <Route path="/place-order/:productId">
           <Order />
         </Route>

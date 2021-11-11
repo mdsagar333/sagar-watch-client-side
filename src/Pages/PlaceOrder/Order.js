@@ -9,59 +9,59 @@ const Order = () => {
         <div className="row">
           <div className="col-12 col-md-6">
             <form>
-              <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">
+              <div className="mb-3">
+                <label htmlFor="exampleInputEmail1" className="form-label">
                   Email address
                 </label>
                 <input
                   type="email"
-                  class="form-control"
+                  className="form-control"
                   name="email"
                   aria-describedby="emailHelp"
                   required
                 />
               </div>
-              <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">
+              <div className="mb-3">
+                <label htmlFor="exampleInputPassword1" className="form-label">
                   Name
                 </label>
                 <input
                   type="text"
-                  class="form-control"
+                  className="form-control"
                   id="exampleInputPassword1"
                   name="name"
                   required
                 />
               </div>
-              <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">
+              <div className="mb-3">
+                <label htmlFor="exampleInputPassword1" className="form-label">
                   Address
                 </label>
                 <input
                   type="text"
-                  class="form-control"
+                  className="form-control"
                   name="address"
                   required
                 />
               </div>
-              <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">
+              <div className="mb-3">
+                <label htmlFor="exampleInputPassword1" className="form-label">
                   Post Code
                 </label>
                 <input
                   type="number"
-                  class="form-control"
+                  className="form-control"
                   name="postCode"
                   required
                 />
               </div>
-              <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">
+              <div className="mb-3">
+                <label htmlFor="exampleInputPassword1" className="form-label">
                   Phone
                 </label>
                 <input
                   type="number"
-                  class="form-control"
+                  className="form-control"
                   name="phone"
                   min="11"
                   required

@@ -1,9 +1,35 @@
-import React from "react";
-import { Link } from "react-router-dom";
-
+import React, { useRef } from "react";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
+import useContextAPI from "../../Hooks/useContextAPI";
 
 const Register = () => {
+  const { googleSignIn, createUserWithEmail, authError } = useContextAPI();
+  const history = useHistory();
+  const location = useLocation();
+  const nameRef = useRef();
+  const emailRef = useRef();
+  const passwordRef = useRef();
+
+  const handleRegisterSubmit = (e) => {
+    e.preventDefault();
+    const name = nameRef.current.value;
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+    createUserWithEmail(email, password, name, history);
+  };
+
+  const signInWithGoogle = () => {
+    const redirectURL = location?.state?.from?.pathname || "/";
+    googleSignIn()
+      .then((res) => {
+        console.log(res);
+        history.push(redirectURL);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <div>
       <section className="mt-3">
@@ -15,18 +41,29 @@ const Register = () => {
                   <div className="row justify-content-center">
                     <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
                       <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
-                        Sign up
+                        Register
                       </p>
 
-                      <form className="mx-1 mx-md-4">
+                      <form
+                        className="mx-1 mx-md-4"
+                        onSubmit={handleRegisterSubmit}
+                      >
+                        {authError.length > 0 && (
+                          <h6 className="text-danger">{authError}</h6>
+                        )}
                         <div className="d-flex flex-row align-items-center mb-1">
                           <div className="form-outline flex-fill mb-0">
                             <input
                               type="text"
                               id="form3Example1c"
                               className="form-control"
+                              ref={nameRef}
+                              required
                             />
-                            <label className="form-label" for="form3Example1c">
+                            <label
+                              className="form-label"
+                              htmlFor="form3Example1c"
+                            >
                               Your Name
                             </label>
                           </div>
@@ -38,8 +75,13 @@ const Register = () => {
                               type="email"
                               id="form3Example3c"
                               className="form-control"
+                              ref={emailRef}
+                              required
                             />
-                            <label className="form-label" for="form3Example3c">
+                            <label
+                              className="form-label"
+                              htmlFor="form3Example3c"
+                            >
                               Your Email
                             </label>
                           </div>
@@ -51,8 +93,13 @@ const Register = () => {
                               type="password"
                               id="form3Example4c"
                               className="form-control"
+                              ref={passwordRef}
+                              required
                             />
-                            <label className="form-label" for="form3Example4c">
+                            <label
+                              className="form-label"
+                              htmlFor="form3Example4c"
+                            >
                               Password
                             </label>
                           </div>
@@ -67,7 +114,7 @@ const Register = () => {
                           />
                           <label
                             className="form-check-label"
-                            for="form2Example3"
+                            htmlFor="form2Example3"
                           >
                             I agree all statements in{" "}
                             <a href="#!">Terms of service</a>
@@ -76,7 +123,7 @@ const Register = () => {
 
                         <div className="d-flex justify-content-center  mb-3 mb-lg-4">
                           <button
-                            type="button"
+                            type="submit"
                             className="btn btn-outline-dark w-100 custom_btn"
                           >
                             Register
@@ -92,12 +139,14 @@ const Register = () => {
                             OR
                           </p>
                         </div>
-
-                        <button className="btn btn-outline-info w-100 justify-content-center btn-block d-flex align-items-center">
-                          <FcGoogle className="me-2" />
-                          Continue with Google
-                        </button>
                       </form>
+                      <button
+                        className="btn btn-outline-info w-100 justify-content-center btn-block d-flex align-items-center"
+                        onClick={signInWithGoogle}
+                      >
+                        <FcGoogle className="me-2" />
+                        Continue with Google
+                      </button>
                     </div>
                     <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
                       <img

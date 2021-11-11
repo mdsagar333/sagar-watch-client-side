@@ -1,9 +1,35 @@
-import React from "react";
+import React, { useRef } from "react";
 import "./Login.css";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
+import useContextAPI from "../../Hooks/useContextAPI";
 
 const Login = () => {
+  const history = useHistory();
+  const location = useLocation();
+  const { googleSignIn, logInUserWithEmail, userLoading } = useContextAPI();
+  const emailRef = useRef();
+  const passwordRef = useRef();
+
+  const handleSignSubmit = (e) => {
+    e.preventDefault();
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+    logInUserWithEmail(email, password, location, history);
+  };
+
+  const signInWIthGoogle = () => {
+    const redirectURL = location?.state?.from?.pathname || "/";
+    googleSignIn()
+      .then((res) => {
+        console.log(res);
+        history.push(redirectURL);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div>
       <section className="mt-3">
@@ -18,15 +44,23 @@ const Login = () => {
                         Login
                       </p>
 
-                      <form className="mx-1 mx-md-4">
+                      <form
+                        className="mx-1 mx-md-4"
+                        onSubmit={handleSignSubmit}
+                      >
                         <div className="d-flex flex-row align-items-center mb-2">
                           <div className="form-outline flex-fill mb-0">
                             <input
                               type="email"
                               id="form3Example3c"
                               className="form-control"
+                              ref={emailRef}
+                              required
                             />
-                            <label className="form-label" for="form3Example3c">
+                            <label
+                              className="form-label"
+                              htmlFor="form3Example3c"
+                            >
                               Your Email
                             </label>
                           </div>
@@ -38,8 +72,13 @@ const Login = () => {
                               type="password"
                               id="form3Example4c"
                               className="form-control"
+                              ref={passwordRef}
+                              required
                             />
-                            <label className="form-label" for="form3Example4c">
+                            <label
+                              className="form-label"
+                              htmlFor="form3Example4c"
+                            >
                               Password
                             </label>
                           </div>
@@ -47,7 +86,7 @@ const Login = () => {
 
                         <div className="d-flex justify-content-center mb-3 mb-lg-4">
                           <button
-                            type="button"
+                            type="submit"
                             className="btn btn-outline-dark custom_btn w-100"
                           >
                             Login
@@ -63,12 +102,14 @@ const Login = () => {
                             OR
                           </p>
                         </div>
-
-                        <button className="btn btn-outline-info w-100 justify-content-center btn-block d-flex align-items-center">
-                          <FcGoogle className="me-2" />
-                          Continue with Google
-                        </button>
                       </form>
+                      <button
+                        className="btn btn-outline-info w-100 justify-content-center btn-block d-flex align-items-center"
+                        onClick={signInWIthGoogle}
+                      >
+                        <FcGoogle className="me-2" />
+                        Continue with Google
+                      </button>
                     </div>
                     <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
                       <img

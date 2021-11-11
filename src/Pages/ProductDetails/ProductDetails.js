@@ -4,15 +4,19 @@ import { AiFillPlusSquare, AiFillMinusSquare } from "react-icons/ai";
 import useContextAPI from "../../Hooks/useContextAPI";
 import Spinner from "../Shared/Spinner/Spinner";
 import { Link } from "react-router-dom";
+import { addItemInCart } from "../../utils/utils";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const [qnt, setQnt] = useState(1);
-  const { watchesData, isDataLoading } = useContextAPI();
+  const { watchesData, userLoading } = useContextAPI();
 
-  const filteredProduct = watchesData.find(
-    (product) => product._id === parseInt(id)
-  );
+  const filteredProduct = watchesData.find((product) => product._id === id);
+
+  const handleAddToCart = (id) => {
+    console.log(id);
+    addItemInCart(id, qnt);
+  };
 
   const handleIncrease = (num) => {
     const newQuantity = qnt + num;
@@ -24,7 +28,7 @@ const ProductDetails = () => {
       setQnt(newQuantity);
     }
   };
-  if (isDataLoading) {
+  if (userLoading) {
     return <Spinner />;
   }
   if (filteredProduct == undefined) {
@@ -78,13 +82,19 @@ const ProductDetails = () => {
                 </div>
               </div>
               <div className="col-6">
-                <button className="btn btn-dark p-3 text-uppercase">
+                <button
+                  className="btn btn-dark p-3 text-uppercase"
+                  onClick={() => console.log("add to cart")}
+                >
                   Add to cart
                 </button>
               </div>
             </div>
           </div>
-          <Link to={`/place-order/${_id}`}>
+          <Link
+            to={`/place-order/${_id}`}
+            onClick={() => addItemInCart(_id, qnt)}
+          >
             <button className="btn mt-3 text-uppercase fw-bold btn-outline-dark w-100 p-3">
               buy now
             </button>
