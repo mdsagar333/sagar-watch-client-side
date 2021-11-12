@@ -12,44 +12,82 @@ import Order from "./Pages/PlaceOrder/Order";
 import useContextAPI from "./Hooks/useContextAPI";
 import PrivateRoute from "./Pages/Shared/PrivateRoute/PrivateRoute";
 import Dashboard from "./Pages/Dashboard/Dashboard";
+import Notfound from "./Pages/NotFound/Notfound";
 
 function App() {
   const { userLoading } = useContextAPI();
 
   return (
     <Router>
-      <Navbar />
       <Switch>
         <Route exact path="/">
-          <Home></Home>
+          <>
+            <Navbar />
+            <Home></Home>
+            <Footer />
+          </>
         </Route>
         <Route path="/home">
-          <Home></Home>
+          <>
+            <Navbar />
+            <Home></Home>
+            <Footer />
+          </>
         </Route>
         <Route path="/about-us">
-          <AboutUs />
+          <>
+            <Navbar />
+            <AboutUs />
+            <Footer />
+          </>
         </Route>
         <Route path="/login">
-          <Login></Login>
+          <>
+            <Navbar />
+            <Login></Login>
+            <Footer />
+          </>
         </Route>
         <Route path="/register">
-          <Register></Register>
+          <>
+            <Navbar />
+            <Register></Register>
+            <Footer />
+          </>
         </Route>
         <Route exact path="/products">
-          <Products></Products>
+          <>
+            <Navbar />
+            <Products></Products>
+            <Footer />
+          </>
         </Route>
         <PrivateRoute path="/product/:id">
-          <ProductDetails></ProductDetails>
+          <>
+            <Navbar />
+            <ProductDetails></ProductDetails>
+            <Footer />
+          </>
         </PrivateRoute>
+        <Route path="/place-order/:productId/:qty">
+          <>
+            <Navbar />
+            <Order />
+            <Footer />
+          </>
+        </Route>
+
         <PrivateRoute path="/dashboard">
           <Dashboard></Dashboard>
         </PrivateRoute>
-        <Route path="/place-order/:productId/:qty">
-          <Order />
+        <Route path="*">
+          <>
+            <Navbar />
+            <Notfound />
+            <Footer />
+          </>
         </Route>
-        <Route path="*"></Route>
       </Switch>
-      <Footer />
     </Router>
   );
 }

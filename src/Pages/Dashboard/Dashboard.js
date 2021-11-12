@@ -15,7 +15,18 @@ import {
   useLocation,
   useRouteMatch,
 } from "react-router-dom";
+
+import { FaListAlt } from "react-icons/fa";
+import { MdPayment } from "react-icons/md";
+import { BsFillBookmarkStarFill } from "react-icons/bs";
+import { RiListSettingsFill, RiSettings2Fill } from "react-icons/ri";
+import { SiAddthis } from "react-icons/si";
+import { ImUserPlus } from "react-icons/im";
+
 import MyOrders from "./UserComponent/MyOrders";
+import MyReview from "./UserComponent/MyReview";
+import AddProduct from "./UserComponent/AddProduct";
+import MakeAdmin from "./UserComponent/MakeAdmin";
 
 const Dashboard = () => {
   const location = useLocation();
@@ -34,14 +45,18 @@ const Dashboard = () => {
           ref={sideNavRef}
           style={{ marginTop: "75px", background: "#493ddb" }}
           onSelect={(selected) => {
-            const to = url + selected;
-            if (path !== to) {
-              history.push(to);
+            if (selected === "/home") {
+              history.push("/");
+            } else {
+              const to = url + selected;
+              if (path !== to) {
+                history.push(to);
+              }
             }
           }}
         >
           <SideNav.Toggle onClick={() => setCalssToggle(!classToggle)} />
-          <SideNav.Nav defaultSelected={`${path}/home`}>
+          <SideNav.Nav defaultSelected={`${path}/my-order`}>
             <NavItem eventKey="/home">
               <NavIcon>
                 <i
@@ -49,37 +64,61 @@ const Dashboard = () => {
                   style={{ fontSize: "1.75em" }}
                 />
               </NavIcon>
-              <NavText>Dashboard</NavText>
+              <NavText>Home</NavText>
             </NavItem>
             <NavItem eventKey="/my-order">
               <NavIcon>
-                <i
-                  className="fa fa-fw fa-line-chart"
-                  style={{ fontSize: "1.75em" }}
-                />
+                <FaListAlt style={{ fontSize: "1.75em" }} />
               </NavIcon>
               <NavText>My Order</NavText>
             </NavItem>
             <NavItem eventKey="/payment">
               <NavIcon>
-                <i
-                  className="fa fa-fw fa-line-chart"
-                  style={{ fontSize: "1.75em" }}
-                />
+                <MdPayment style={{ fontSize: "1.75em" }} />
               </NavIcon>
               <NavText>Payment</NavText>
             </NavItem>
             <NavItem eventKey="/review">
               <NavIcon>
-                <i
-                  className="fa fa-fw fa-line-chart"
-                  style={{ fontSize: "1.75em" }}
-                />
+                <BsFillBookmarkStarFill style={{ fontSize: "1.75em" }} />
               </NavIcon>
               <NavText>Review</NavText>
             </NavItem>
+
+            {/* admin menu item */}
+
+            <NavItem eventKey="/manage-all-orders">
+              <NavIcon>
+                <RiListSettingsFill style={{ fontSize: "1.75em" }} />
+              </NavIcon>
+              <NavText>Manage All Orders</NavText>
+            </NavItem>
+            <NavItem eventKey="/add-product">
+              <NavIcon>
+                <SiAddthis style={{ fontSize: "1.75em" }} />
+              </NavIcon>
+              <NavText>Add Product</NavText>
+            </NavItem>
+            <NavItem eventKey="/make-admin">
+              <NavIcon>
+                <ImUserPlus style={{ fontSize: "1.75em" }} />
+              </NavIcon>
+              <NavText>Make Admin</NavText>
+            </NavItem>
+            <NavItem eventKey="/manage-product">
+              <NavIcon>
+                <RiSettings2Fill style={{ fontSize: "1.75em" }} />
+              </NavIcon>
+              <NavText>Manage Product</NavText>
+            </NavItem>
           </SideNav.Nav>
         </SideNav>
+      </div>
+      <div
+        style={{ height: "75px", fontSize: "40px" }}
+        className="bg-dark text-white text-center text-capitalize"
+      >
+        Dashboard
       </div>
       <div
         className={`main_dashboard_container ${
@@ -88,11 +127,11 @@ const Dashboard = () => {
       >
         <Switch>
           <Route exact path={`${path}`}>
-            <h1>dashboard</h1>
+            <MyOrders></MyOrders>
           </Route>
-          <Route path={`${path}/home`}>
+          {/* <Route path={`${path}/home`}>
             <h1>dashboard</h1>
-          </Route>
+          </Route> */}
           <Route path={`${path}/payment`}>
             <h1>Payment feature coming soon</h1>
           </Route>
@@ -100,7 +139,21 @@ const Dashboard = () => {
             <MyOrders></MyOrders>
           </Route>
           <Route path={`${path}/review`}>
-            <h1>review</h1>
+            <MyReview />
+          </Route>
+
+          {/* admin component */}
+          <Route path={`${path}/manage-all-orders`}>
+            <h1>manage all orders</h1>
+          </Route>
+          <Route path={`${path}/add-product`}>
+            <AddProduct />
+          </Route>
+          <Route path={`${path}/make-admin`}>
+            <MakeAdmin />
+          </Route>
+          <Route path={`${path}/manage-product`}>
+            <h1>Manage product</h1>
           </Route>
         </Switch>
       </div>

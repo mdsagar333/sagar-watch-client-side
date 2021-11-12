@@ -10,6 +10,7 @@ const Order = () => {
   const { watchesData } = useContextAPI();
   const { productId, qty } = useParams();
   const [userInfo, setUserInfo] = useState({ name: "", email: "" });
+  const [isConfirmLoading, setIsConfirmLoading] = useState(false);
 
   useEffect(() => {
     const name = user?.displayName || "";
