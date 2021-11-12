@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Logo from "../Logo/Logo";
 import { Link } from "react-router-dom";
 import useContextAPI from "../../../Hooks/useContextAPI";
 
 const Navbar = () => {
-  const { user, logout } = useContextAPI();
+  const { user, logout, setNavSize } = useContextAPI();
+  const navRef = useRef();
+  const [navHeight, setNavHeight] = useState();
+
+  useEffect(() => {
+    console.log(navRef.current.offsetHeight);
+    setNavSize(navRef.current.offsetHeight);
+  });
+
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark" ref={navRef}>
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">
           <Logo></Logo>
@@ -39,7 +47,7 @@ const Navbar = () => {
               </Link>
             </li>
             {user ? (
-              <div className="d-flex">
+              <div className="d-flex flex-column flex-lg-row">
                 <li className="nav-item">
                   <Link className="nav-link active fw-bold" to="/dashboard">
                     Dashboard

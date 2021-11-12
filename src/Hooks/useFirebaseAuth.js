@@ -30,16 +30,33 @@ const useFirebaseAuth = () => {
     setUserLoading(true);
     setAuthError("");
     createUserWithEmailAndPassword(auth, email, password)
-      .then((user) => {
-        console.log(user);
+      .then((userCredential) => {
+        // saving to database
+        const user = userCredential.user;
+
+        // updating user name
         updateProfile(auth.currentUser, { displayName: name })
-          .then((res) => {
-            console.log("update", res);
+          .then(() => {
+            console.log("profile update");
+            fetch("http://127.0.0.1:5000/users", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                name,
+                email,
+                userUID: user.uid,
+                role: "user",
+              }),
+            });
           })
           .catch((err) => {
             console.log(err);
             setAuthError(err.message);
           });
+
+        // redirecting to home page
         history.replace("/");
       })
       .catch((err) => {

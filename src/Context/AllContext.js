@@ -6,6 +6,7 @@ export const contextAPI = createContext();
 const AllContext = ({ children }) => {
   const [watchesData, setWatchesData] = useState([]);
   const [isDataLoading, setIsDataLoading] = useState(true);
+  const [navSize, setNavSize] = useState();
   const auth = useFirebaseAuth();
 
   useEffect(() => {
@@ -23,7 +24,9 @@ const AllContext = ({ children }) => {
       });
   }, []);
   return (
-    <contextAPI.Provider value={{ watchesData, isDataLoading, ...auth }}>
+    <contextAPI.Provider
+      value={{ watchesData, isDataLoading, ...auth, setNavSize, navSize }}
+    >
       {children}
     </contextAPI.Provider>
   );

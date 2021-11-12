@@ -44,7 +44,7 @@ function App() {
         <PrivateRoute path="/dashboard">
           <Dashboard></Dashboard>
         </PrivateRoute>
-        <Route path="/place-order/:productId">
+        <Route path="/place-order/:productId/:qty">
           <Order />
         </Route>
         <Route path="*"></Route>

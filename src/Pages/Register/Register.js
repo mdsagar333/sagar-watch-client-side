@@ -23,7 +23,22 @@ const Register = () => {
     const redirectURL = location?.state?.from?.pathname || "/";
     googleSignIn()
       .then((res) => {
-        console.log(res);
+        const result = res.user;
+        const uid = result.uid;
+        console.log(uid, "google sign in");
+        fetch("http://127.0.0.1:5000/users", {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: result.displayName,
+            email: result.email || "",
+            userUID: uid,
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => console.log(data));
         history.push(redirectURL);
       })
       .catch((err) => {

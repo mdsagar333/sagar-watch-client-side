@@ -92,7 +92,7 @@ const ProductDetails = () => {
             </div>
           </div>
           <Link
-            to={`/place-order/${_id}`}
+            to={`/place-order/${_id}/${qnt}`}
             onClick={() => addItemInCart(_id, qnt)}
           >
             <button className="btn mt-3 text-uppercase fw-bold btn-outline-dark w-100 p-3">
