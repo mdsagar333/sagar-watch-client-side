@@ -11,12 +11,12 @@ const Order = () => {
   const { productId, qty } = useParams();
   const [userInfo, setUserInfo] = useState({ name: "", email: "" });
   const [isConfirmLoading, setIsConfirmLoading] = useState(false);
+  const [isOrderPlaced, setIsOrderPlaced] = useState("");
 
   useEffect(() => {
     const name = user?.displayName || "";
     const email = user?.email || "";
     setUserInfo({ ...userInfo, name, email });
-    console.log(userInfo);
   }, []);
 
   if (isDataLoading || userLoading) {
@@ -32,15 +32,8 @@ const Order = () => {
 
   const handleOrder = (e) => {
     e.preventDefault();
-    console.log(user.uid);
-    console.log({
-      ...userInfo,
-      productName: name,
-      productQuantity: qty,
-      productPrice: price,
-      userUID: user.uid,
-    });
-
+    setIsConfirmLoading(true);
+    setIsOrderPlaced("");
     fetch("http://127.0.0.1:5000/orders", {
       method: "POST",
       headers: {
@@ -56,7 +49,15 @@ const Order = () => {
       }),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        if (data.status === "success") {
+          setIsOrderPlaced("Your order has been placed.");
+        }
+      })
+      .finally(() => {
+        setIsConfirmLoading(false);
+        setUserInfo({ ...userInfo, address: "", postCode: "", phone: "" });
+      });
   };
 
   return (
@@ -66,6 +67,9 @@ const Order = () => {
         <div className="row">
           <div className="col-12 col-md-6">
             <form onSubmit={handleOrder}>
+              {isOrderPlaced.length > 0 ? (
+                <p className="alert alert-success">{isOrderPlaced}</p>
+              ) : null}
               <div className="mb-3">
                 <label htmlFor="exampleInputEmail1" className="form-label">
                   Email address
@@ -104,6 +108,7 @@ const Order = () => {
                   name="address"
                   required
                   onChange={handleChange}
+                  value={userInfo.address}
                 />
               </div>
               <div className="mb-3">
@@ -115,6 +120,7 @@ const Order = () => {
                   className="form-control"
                   name="postCode"
                   required
+                  value={userInfo.postCode}
                   onChange={handleChange}
                 />
               </div>
@@ -128,11 +134,20 @@ const Order = () => {
                   name="phone"
                   min="11"
                   required
+                  value={userInfo.phone}
                   onChange={handleChange}
                 />
               </div>
               <button className="btn btn-outline-dark custom_btn w-100 mt-3">
-                Confirm Order
+                {isConfirmLoading ? (
+                  <span
+                    className="spinner-border spinner-border-sm"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+                ) : (
+                  "Confirm Order"
+                )}
               </button>
             </form>
           </div>

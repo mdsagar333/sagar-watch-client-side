@@ -17,6 +17,9 @@ const useFirebaseAuth = () => {
   const [user, setUser] = useState(null);
   const [userLoading, setUserLoading] = useState(true);
   const [authError, setAuthError] = useState("");
+  const [authErrorLogin, setAuthErrorLogin] = useState("");
+  const [authErrorRegister, setAuthErrorRegister] = useState("");
+  const [admin, setAdmin] = useState(false);
 
   const auth = getAuth();
 
@@ -53,7 +56,7 @@ const useFirebaseAuth = () => {
           })
           .catch((err) => {
             console.log(err);
-            setAuthError(err.message);
+            setAuthErrorRegister(err.message);
           });
 
         // redirecting to home page
@@ -69,14 +72,17 @@ const useFirebaseAuth = () => {
   };
 
   const logInUserWithEmail = (email, password, location, history) => {
+    setUserLoading(true);
+    setAuthError("");
     const redirectURL = location?.state?.from?.pathname || "/";
     signInWithEmailAndPassword(auth, email, password)
       .then((result) => {
-        console.log(result);
         history.replace(redirectURL);
+        setUserLoading(false);
       })
       .catch((err) => {
         setAuthError(err.message);
+        setUserLoading(false);
       });
   };
   const logout = () => {
@@ -93,22 +99,35 @@ const useFirebaseAuth = () => {
       });
   };
 
+  const dashBoardLogOut = () => {
+    setUserLoading(true);
+    return signOut(auth);
+  };
+
   useEffect(() => {
     setUserLoading(true);
     const unsubscribed = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
+        setAdmin(user);
         setUserLoading(false);
       } else {
         setUser(null);
+        setAdmin(null);
         setUserLoading(false);
       }
-
-      setUserLoading(false);
     });
 
     return () => unsubscribed;
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      fetch(`http://127.0.0.1:5000/users/admin/${user.uid}`)
+        .then((res) => res.json())
+        .then((data) => setAdmin(data.isAdmin));
+    }
+  }, [user?.uid]);
 
   return {
     user,
@@ -118,6 +137,9 @@ const useFirebaseAuth = () => {
     googleSignIn,
     logout,
     logInUserWithEmail,
+    admin,
+    dashBoardLogOut,
+    authErrorRegister,
   };
 };
 

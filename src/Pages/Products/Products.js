@@ -1,21 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useContextAPI from "../../Hooks/useContextAPI";
 import Product from "../Shared/Product/Product";
 import Spinner from "../Shared/Spinner/Spinner";
 
 const Products = () => {
-  const { watchesData, isDataLoading } = useContextAPI();
+  const { isDataLoading, setWatchesData } = useContextAPI();
+  const [allProdcuts, setAllProducts] = useState([]);
+  const [isProductsLoading, setIsProductLoading] = useState(false);
+
+  useEffect(() => {
+    setIsProductLoading(true);
+    fetch(`http://127.0.0.1:5000/products`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === "success") {
+          setWatchesData(data.products);
+          setAllProducts(data.products);
+        }
+      })
+      .finally(() => {
+        setIsProductLoading(false);
+      });
+  }, []);
   return (
     <div className="shop_container">
       <div className="shop_banner d-flex justify-content-center align-items-center">
         <h1 className="text-light">Our All products</h1>
       </div>
       <div className="products_container mt-4 container">
-        {isDataLoading ? (
+        {isProductsLoading ? (
           <Spinner></Spinner>
         ) : (
           <div className="row g-4">
-            {watchesData.map((product) => (
+            {allProdcuts.map((product) => (
               <Product key={product._id} {...product}></Product>
             ))}
           </div>

@@ -82,3 +82,27 @@ body {
 .footer_img_four {
   background: url(https://swisseagle.wpengine.com/wp-content/uploads/sb-instagram-feed-images/22801981_109350606449958_6270976148528693248_nfull.jpg);
 }
+
+/* modal styles */
+
+.custom_modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 10000;
+}
+
+.modal_content {
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.custom_modal_content {
+  position: relative;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+}

@@ -1,41 +1,62 @@
 import React, { useEffect, useState } from "react";
 import useContextAPI from "../../../Hooks/useContextAPI";
 import feedback from "../../../images/feedback.jpg";
+import Spinner from "../../Shared/Spinner/Spinner";
 const MyReview = () => {
-  const { user } = useContextAPI();
+  const { user, userLoading } = useContextAPI();
   const [userFeedback, setUserFeedback] = useState({
     feedbackText: "",
-    rating: 1,
+    rating: 0,
+    name: "",
   });
-  const [ratingError, setRatingError] = useState("");
-  console.log(user.displayName);
-  useEffect(() => {
-    setUserFeedback({ ...userFeedback, name: user.displayName });
-  }, []);
+  const [serverResponse, setServerResponse] = useState("");
+  const [savingReview, setSavingReview] = useState(false);
 
   const handleFeedbackSubmit = (e) => {
     e.preventDefault();
     console.log(userFeedback);
-    setRatingError("");
+    setServerResponse("");
+
     if (userFeedback.rating > 5 || userFeedback < 1) {
-      setRatingError("Please enter your rating between 1-5");
+      setServerResponse("Please enter your rating between 1-5");
       return;
     }
+
+    setSavingReview(true);
+
     fetch("http://127.0.0.1:5000/reviews", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ ...userFeedback }),
+      body: JSON.stringify({
+        ...userFeedback,
+        userName: user.email || user.uid,
+      }),
     })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        if (data.status === "fail") {
+          setServerResponse(data.error);
+        } else {
+          setServerResponse("Review added successfully.");
+        }
+        setSavingReview(false);
       });
   };
   const handleOnChangeFeedback = (e) => {
     setUserFeedback({ ...userFeedback, [e.target.name]: e.target.value });
   };
+
+  // useEffect(() => {
+  //   setUserFeedback({ userFeedback, name: user.displayName });
+  // }, [user?.uid]);
+
+  if (userLoading) {
+    return <Spinner />;
+  }
+
   return (
     <div className="feedback_container">
       <div className="container">
@@ -43,6 +64,19 @@ const MyReview = () => {
         <div className="row d-flex align-items-center">
           <div className="col-12 col-md-6">
             <form onSubmit={handleFeedbackSubmit}>
+              {serverResponse !== "" ? (
+                <p
+                  className={
+                    serverResponse.endsWith("successfully.")
+                      ? "text-success"
+                      : "text-danger"
+                  }
+                >
+                  {serverResponse}{" "}
+                </p>
+              ) : (
+                ""
+              )}
               <div className="mb-3">
                 <label
                   htmlFor="exampleFormControlInput1"
@@ -55,7 +89,7 @@ const MyReview = () => {
                   className="form-control"
                   id="exampleFormControlInput1"
                   name="name"
-                  value={userFeedback.name || ""}
+                  value={user.displayName || userFeedback.name}
                   placeholder=""
                   onChange={handleOnChangeFeedback}
                   required
@@ -91,13 +125,26 @@ const MyReview = () => {
                   className="form-control"
                   id="exampleFormControlTextarea1"
                   rows="3"
+                  value={userFeedback.feedbackText}
                   placeholder="Enter your feedback"
                   onChange={handleOnChangeFeedback}
                   name="feedbackText"
                 ></textarea>
               </div>
-              <button className="btn btn-outline-dark" type="submit">
-                submit
+              <button
+                className="btn btn-outline-dark"
+                type="submit"
+                style={{ minWidth: "120px" }}
+              >
+                {savingReview ? (
+                  <span
+                    className="spinner-border spinner-border-sm"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+                ) : (
+                  "Submit"
+                )}
               </button>
             </form>
           </div>

@@ -22,13 +22,19 @@ import { BsFillBookmarkStarFill } from "react-icons/bs";
 import { RiListSettingsFill, RiSettings2Fill } from "react-icons/ri";
 import { SiAddthis } from "react-icons/si";
 import { ImUserPlus } from "react-icons/im";
+import { HiOutlineLogout } from "react-icons/hi";
 
 import MyOrders from "./UserComponent/MyOrders";
 import MyReview from "./UserComponent/MyReview";
-import AddProduct from "./UserComponent/AddProduct";
-import MakeAdmin from "./UserComponent/MakeAdmin";
+import ManageAllOrders from "./AdminComponent/ManageAllOrders";
+import AddProduct from "./AdminComponent/AddProduct";
+import MakeAdmin from "./AdminComponent/MakeAdmin";
+import useContextAPI from "../../Hooks/useContextAPI";
+import Spinner from "../Shared/Spinner/Spinner";
+import ManageProducts from "./AdminComponent/ManageProducts";
 
 const Dashboard = () => {
+  const { user, userLoading, admin, dashBoardLogOut } = useContextAPI();
   const location = useLocation();
   const history = useHistory();
   let { path, url } = useRouteMatch();
@@ -36,90 +42,169 @@ const Dashboard = () => {
   const sideNavRef = useRef();
   const [classToggle, setCalssToggle] = useState(false);
 
-  useEffect(() => {}, [window.screen.width]);
-
+  console.log(admin);
   return (
     <div className="dashboard_container" ref={dashboardRef}>
       <div className="sideNav_container">
-        <SideNav
-          ref={sideNavRef}
-          style={{ marginTop: "75px", background: "#493ddb" }}
-          onSelect={(selected) => {
-            if (selected === "/home") {
-              history.push("/");
-            } else {
-              const to = url + selected;
-              if (path !== to) {
-                history.push(to);
-              }
-            }
-          }}
-        >
-          <SideNav.Toggle onClick={() => setCalssToggle(!classToggle)} />
-          <SideNav.Nav defaultSelected={`${path}/my-order`}>
-            <NavItem eventKey="/home">
-              <NavIcon>
-                <i
-                  className="fa fa-fw fa-home"
-                  style={{ fontSize: "1.75em" }}
-                />
-              </NavIcon>
-              <NavText>Home</NavText>
-            </NavItem>
-            <NavItem eventKey="/my-order">
-              <NavIcon>
-                <FaListAlt style={{ fontSize: "1.75em" }} />
-              </NavIcon>
-              <NavText>My Order</NavText>
-            </NavItem>
-            <NavItem eventKey="/payment">
-              <NavIcon>
-                <MdPayment style={{ fontSize: "1.75em" }} />
-              </NavIcon>
-              <NavText>Payment</NavText>
-            </NavItem>
-            <NavItem eventKey="/review">
-              <NavIcon>
-                <BsFillBookmarkStarFill style={{ fontSize: "1.75em" }} />
-              </NavIcon>
-              <NavText>Review</NavText>
-            </NavItem>
+        {user && admin ? (
+          <>
+            {/* admin dashboar options */}
+            <SideNav
+              ref={sideNavRef}
+              style={{
+                marginTop: "75px",
+                background: "rgb(20, 100, 92) none repeat scroll 0% 0%",
+              }}
+              onSelect={(selected) => {
+                if (selected === "/log-out") {
+                  dashBoardLogOut().then(() => {
+                    history.push("/");
+                  });
+                  history.push("/");
+                } else if (selected === "/home") {
+                  history.push("/");
+                } else {
+                  const to = url + selected;
+                  if (path !== to) {
+                    history.push(to);
+                  }
+                }
+              }}
+            >
+              <SideNav.Toggle onClick={() => setCalssToggle(!classToggle)} />
 
-            {/* admin menu item */}
+              <SideNav.Nav defaultSelected={`${path}/home`}>
+                {/* nav item home link */}
+                <NavItem eventKey="/home">
+                  <NavIcon>
+                    <i
+                      className="fa fa-fw fa-home"
+                      style={{ fontSize: "1.75em" }}
+                    />
+                  </NavIcon>
+                  <NavText>Home</NavText>
+                </NavItem>
+                {/* end nav item home link */}
+                <NavItem eventKey="/make-admin">
+                  <NavIcon>
+                    <ImUserPlus style={{ fontSize: "1.75em" }} />
+                  </NavIcon>
+                  <NavText>Make Admin</NavText>
+                </NavItem>
+                <NavItem eventKey="/manage-all-orders">
+                  <NavIcon>
+                    <RiListSettingsFill style={{ fontSize: "1.75em" }} />
+                  </NavIcon>
+                  <NavText>Manage All Orders</NavText>
+                </NavItem>
+                <NavItem eventKey="/add-product">
+                  <NavIcon>
+                    <SiAddthis style={{ fontSize: "1.75em" }} />
+                  </NavIcon>
+                  <NavText>Add Product</NavText>
+                </NavItem>
+                <NavItem eventKey="/manage-product">
+                  <NavIcon>
+                    <RiSettings2Fill style={{ fontSize: "1.75em" }} />
+                  </NavIcon>
+                  <NavText>Manage Product</NavText>
+                </NavItem>
+                {/* logout btn */}
+                <NavItem eventKey="/log-out">
+                  <NavIcon>
+                    <i
+                      className="fas fa-sign-out-alt"
+                      style={{ fontSize: "1.75em" }}
+                    />
+                  </NavIcon>
+                  <NavText>Logout</NavText>
+                </NavItem>
+              </SideNav.Nav>
+            </SideNav>
+          </>
+        ) : (
+          // user dashboard options
+          <>
+            <SideNav
+              ref={sideNavRef}
+              style={{
+                marginTop: "75px",
+                background: "rgb(20, 100, 92) none repeat scroll 0% 0%",
+              }}
+              onSelect={(selected) => {
+                if (selected === "/log-out") {
+                  dashBoardLogOut().then(() => {
+                    history.push("/");
+                  });
+                  history.push("/");
+                } else if (selected === "/home") {
+                  history.push("/");
+                } else {
+                  const to = url + selected;
+                  if (path !== to) {
+                    history.push(to);
+                  }
+                }
+              }}
+            >
+              <SideNav.Toggle onClick={() => setCalssToggle(!classToggle)} />
 
-            <NavItem eventKey="/manage-all-orders">
-              <NavIcon>
-                <RiListSettingsFill style={{ fontSize: "1.75em" }} />
-              </NavIcon>
-              <NavText>Manage All Orders</NavText>
-            </NavItem>
-            <NavItem eventKey="/add-product">
-              <NavIcon>
-                <SiAddthis style={{ fontSize: "1.75em" }} />
-              </NavIcon>
-              <NavText>Add Product</NavText>
-            </NavItem>
-            <NavItem eventKey="/make-admin">
-              <NavIcon>
-                <ImUserPlus style={{ fontSize: "1.75em" }} />
-              </NavIcon>
-              <NavText>Make Admin</NavText>
-            </NavItem>
-            <NavItem eventKey="/manage-product">
-              <NavIcon>
-                <RiSettings2Fill style={{ fontSize: "1.75em" }} />
-              </NavIcon>
-              <NavText>Manage Product</NavText>
-            </NavItem>
-          </SideNav.Nav>
-        </SideNav>
+              <SideNav.Nav defaultSelected={`${path}/home`}>
+                {/* nav item home link */}
+                <NavItem eventKey="/home">
+                  <NavIcon>
+                    <i
+                      className="fa fa-fw fa-home"
+                      style={{ fontSize: "1.75em" }}
+                    />
+                  </NavIcon>
+                  <NavText>Home</NavText>
+                </NavItem>
+                {/* end nav item home link */}
+
+                <NavItem eventKey="/my-order">
+                  <NavIcon>
+                    <FaListAlt style={{ fontSize: "1.75em" }} />
+                  </NavIcon>
+                  <NavText>My Order</NavText>
+                </NavItem>
+                <NavItem eventKey="/payment">
+                  <NavIcon>
+                    <MdPayment style={{ fontSize: "1.75em" }} />
+                  </NavIcon>
+                  <NavText>Payment</NavText>
+                </NavItem>
+                <NavItem eventKey="/review">
+                  <NavIcon>
+                    <BsFillBookmarkStarFill style={{ fontSize: "1.75em" }} />
+                  </NavIcon>
+                  <NavText>Review</NavText>
+                </NavItem>
+                {/* logout btn */}
+                <NavItem eventKey="/log-out">
+                  <NavIcon>
+                    <i
+                      className="fas fa-sign-out-alt"
+                      style={{ fontSize: "1.75em" }}
+                    />
+                  </NavIcon>
+                  <NavText>Logout</NavText>
+                </NavItem>
+              </SideNav.Nav>
+            </SideNav>
+          </>
+        )}
       </div>
+
+      {/* dashboar header */}
       <div
-        style={{ height: "75px", fontSize: "40px" }}
-        className="bg-dark text-white text-center text-capitalize"
+        style={{ height: "75px", fontSize: "40px", backgroundColor: "#297b70" }}
+        className="text-white text-center text-capitalize"
       >
         Dashboard
       </div>
+
+      {/* dashboard content */}
       <div
         className={`main_dashboard_container ${
           classToggle ? "main_content_second" : ""
@@ -127,10 +212,12 @@ const Dashboard = () => {
       >
         <Switch>
           <Route exact path={`${path}`}>
-            <MyOrders></MyOrders>
+            <h1 className="text-center text-capitalize">
+              Wellcome to your dashboard
+            </h1>
           </Route>
           {/* <Route path={`${path}/home`}>
-            <h1>dashboard</h1>
+            <h1>Wellcome to your dashboard</h1>
           </Route> */}
           <Route path={`${path}/payment`}>
             <h1>Payment feature coming soon</h1>
@@ -144,7 +231,7 @@ const Dashboard = () => {
 
           {/* admin component */}
           <Route path={`${path}/manage-all-orders`}>
-            <h1>manage all orders</h1>
+            <ManageAllOrders />
           </Route>
           <Route path={`${path}/add-product`}>
             <AddProduct />
@@ -153,7 +240,7 @@ const Dashboard = () => {
             <MakeAdmin />
           </Route>
           <Route path={`${path}/manage-product`}>
-            <h1>Manage product</h1>
+            <ManageProducts />
           </Route>
         </Switch>
       </div>

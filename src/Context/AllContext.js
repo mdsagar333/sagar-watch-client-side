@@ -25,7 +25,14 @@ const AllContext = ({ children }) => {
   }, []);
   return (
     <contextAPI.Provider
-      value={{ watchesData, isDataLoading, ...auth, setNavSize, navSize }}
+      value={{
+        watchesData,
+        isDataLoading,
+        ...auth,
+        setNavSize,
+        navSize,
+        setWatchesData,
+      }}
     >
       {children}
     </contextAPI.Provider>

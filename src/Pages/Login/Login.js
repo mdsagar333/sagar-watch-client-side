@@ -1,13 +1,15 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Login.css";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import useContextAPI from "../../Hooks/useContextAPI";
+import Spinner from "../Shared/Spinner/Spinner";
 
 const Login = () => {
   const history = useHistory();
   const location = useLocation();
-  const { googleSignIn, logInUserWithEmail, userLoading } = useContextAPI();
+  const { googleSignIn, logInUserWithEmail, userLoading, user, authError } =
+    useContextAPI();
   const emailRef = useRef();
   const passwordRef = useRef();
 
@@ -19,7 +21,8 @@ const Login = () => {
   };
 
   const signInWIthGoogle = () => {
-    const redirectURL = location?.state?.from?.pathname || "/";
+    const redirectURL = location?.state?.from?.pathname || "/dashboard";
+
     googleSignIn()
       .then((res) => {
         console.log(res.user);
@@ -46,6 +49,10 @@ const Login = () => {
       });
   };
 
+  // if (userLoading) {
+  //   return <Spinner />;
+  // }
+
   return (
     <div>
       <section className="mt-3">
@@ -64,6 +71,7 @@ const Login = () => {
                         className="mx-1 mx-md-4"
                         onSubmit={handleSignSubmit}
                       >
+                        {authError !== "" && <p>{authError}</p>}
                         <div className="d-flex flex-row align-items-center mb-2">
                           <div className="form-outline flex-fill mb-0">
                             <input
@@ -105,7 +113,15 @@ const Login = () => {
                             type="submit"
                             className="btn btn-outline-dark custom_btn w-100"
                           >
-                            Login
+                            {userLoading ? (
+                              <span
+                                className="spinner-border spinner-border-sm"
+                                role="status"
+                                aria-hidden="true"
+                              ></span>
+                            ) : (
+                              "Login"
+                            )}
                           </button>
                         </div>
                         <p className="mt-3">

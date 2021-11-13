@@ -4,7 +4,13 @@ import { FcGoogle } from "react-icons/fc";
 import useContextAPI from "../../Hooks/useContextAPI";
 
 const Register = () => {
-  const { googleSignIn, createUserWithEmail, authError } = useContextAPI();
+  const {
+    googleSignIn,
+    createUserWithEmail,
+    authError,
+    userLoading,
+    authErrorRegister,
+  } = useContextAPI();
   const history = useHistory();
   const location = useLocation();
   const nameRef = useRef();
@@ -63,7 +69,7 @@ const Register = () => {
                         className="mx-1 mx-md-4"
                         onSubmit={handleRegisterSubmit}
                       >
-                        {authError.length > 0 && (
+                        {authErrorRegister.length > 0 && (
                           <h6 className="text-danger">{authError}</h6>
                         )}
                         <div className="d-flex flex-row align-items-center mb-1">
@@ -141,7 +147,15 @@ const Register = () => {
                             type="submit"
                             className="btn btn-outline-dark w-100 custom_btn"
                           >
-                            Register
+                            {userLoading ? (
+                              <span
+                                class="spinner-border spinner-border-sm"
+                                role="status"
+                                aria-hidden="true"
+                              ></span>
+                            ) : (
+                              "Register"
+                            )}
                           </button>
                         </div>
                         <p className="mt-3">

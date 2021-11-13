@@ -69,13 +69,13 @@ function App() {
             <Footer />
           </>
         </PrivateRoute>
-        <Route path="/place-order/:productId/:qty">
+        <PrivateRoute path="/place-order/:productId/:qty">
           <>
             <Navbar />
             <Order />
             <Footer />
           </>
-        </Route>
+        </PrivateRoute>
 
         <PrivateRoute path="/dashboard">
           <Dashboard></Dashboard>
