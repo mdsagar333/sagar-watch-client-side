@@ -1,21 +1,42 @@
 import React, { useEffect, useState } from "react";
 import { AiFillDelete } from "react-icons/ai";
 import { FaRegEdit } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import Spinner from "../../Shared/Spinner/Spinner";
 
 const ManageProducts = () => {
   const [products, setProducts] = useState([]);
+  const [serverResponse, setServerResponse] = useState("");
   const [productLoading, setProductLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [confirmAction, setConfirmAction] = useState({ id: "", action: "" });
+  const [confirmId, setConfirmId] = useState("");
+  const [isNeedToUpdate, setIsNeedToUpdate] = useState(0);
 
-  const handleAction = (id, operation) => {
-    setConfirmAction({ id, action: operation });
+  const handleAction = (id) => {
+    setConfirmId(id);
     setShowModal(true);
   };
 
   const handleConfirmAction = () => {
     setShowModal(false);
+    setServerResponse("");
+    const url = `http://127.0.0.1:5000/products/${confirmId}`;
+    fetch(url, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.status === "success") {
+        }
+      })
+      .finally(() => {
+        setIsNeedToUpdate(isNeedToUpdate + 1);
+        setServerResponse("Product removed successfully.");
+      });
   };
 
   useEffect(() => {
@@ -28,10 +49,13 @@ const ManageProducts = () => {
       .finally(() => {
         setProductLoading(false);
       });
-  }, []);
+  }, [isNeedToUpdate]);
   return (
     <div className="manage_products_container">
       <h1 className="mb-4 text-center">Manage Products</h1>
+      {serverResponse.length > 0 ? (
+        <p className="alert alert-success">{serverResponse}</p>
+      ) : null}
       {productLoading ? (
         <Spinner />
       ) : (
@@ -62,10 +86,11 @@ const ManageProducts = () => {
                         fontSize: "22px",
                         margin: "0 5px",
                       }}
-                      onClick={() => handleAction(products._id, "delete")}
+                      onClick={() => handleAction(product._id)}
                     ></AiFillDelete>
                   </button>
-                  <button
+                  <Link
+                    to={`/update-product/${product._id}`}
                     className="btn"
                     style={{ display: "inline-block", padding: "0px" }}
                   >
@@ -76,9 +101,8 @@ const ManageProducts = () => {
                         fontSize: "22px",
                         margin: "0 5px",
                       }}
-                      onClick={() => handleAction(products._id, "update")}
                     />
-                  </button>
+                  </Link>
                 </td>
               </tr>
             ))}

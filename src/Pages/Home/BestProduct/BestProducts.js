@@ -1,14 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useContextAPI from "../../../Hooks/useContextAPI";
 import Product from "../../Shared/Product/Product";
 import Spinner from "../../Shared/Spinner/Spinner";
 
 const BestProducts = () => {
-  const { watchesData, isDataLoading } = useContextAPI();
-  const bestDeals = watchesData.slice(0, 6);
-  console.log(bestDeals);
+  const [bestProducts, setBestProducts] = useState([]);
+  const [productLoading, setProductLoading] = useState(true);
 
-  if (isDataLoading) {
+  useEffect(() => {
+    setProductLoading(true);
+    fetch("http://127.0.0.1:5000/products?limit=6")
+      .then((res) => res.json())
+      .then((data) => {
+        setBestProducts(data.products);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setProductLoading(false);
+      });
+  }, []);
+
+  if (productLoading) {
     return <Spinner />;
   }
 
@@ -22,7 +36,7 @@ const BestProducts = () => {
       </div>
       <section className="products-container container">
         <div className="row g-4">
-          {bestDeals.map((watch) => (
+          {bestProducts.map((watch) => (
             <Product key={watch._id} {...watch} />
           ))}
         </div>

@@ -24,7 +24,7 @@ const Products = () => {
   }, []);
   return (
     <div className="shop_container">
-      <div className="shop_banner d-flex justify-content-center align-items-center">
+      <div className="title_banner d-flex justify-content-center align-items-center">
         <h1 className="text-light">Our All products</h1>
       </div>
       <div className="products_container mt-4 container">

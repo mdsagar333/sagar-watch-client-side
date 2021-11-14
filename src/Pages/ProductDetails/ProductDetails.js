@@ -9,7 +9,7 @@ import { addItemInCart } from "../../utils/utils";
 const ProductDetails = () => {
   const { id } = useParams();
   const [qnt, setQnt] = useState(1);
-  const { watchesData, userLoading } = useContextAPI();
+  const { watchesData, userLoading, isDataLoading } = useContextAPI();
 
   const filteredProduct = watchesData.find((product) => product._id === id);
 
@@ -28,7 +28,7 @@ const ProductDetails = () => {
       setQnt(newQuantity);
     }
   };
-  if (userLoading) {
+  if (userLoading || isDataLoading) {
     return <Spinner />;
   }
   if (filteredProduct == undefined) {

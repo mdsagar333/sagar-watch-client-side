@@ -7,7 +7,7 @@ const MyReview = () => {
   const [userFeedback, setUserFeedback] = useState({
     feedbackText: "",
     rating: 0,
-    name: "",
+    name: user.displayName,
   });
   const [serverResponse, setServerResponse] = useState("");
   const [savingReview, setSavingReview] = useState(false);
@@ -51,7 +51,7 @@ const MyReview = () => {
 
   // useEffect(() => {
   //   setUserFeedback({ userFeedback, name: user.displayName });
-  // }, [user?.uid]);
+  // }, []);
 
   if (userLoading) {
     return <Spinner />;
@@ -89,7 +89,7 @@ const MyReview = () => {
                   className="form-control"
                   id="exampleFormControlInput1"
                   name="name"
-                  value={user.displayName || userFeedback.name}
+                  value={userFeedback.name}
                   placeholder=""
                   onChange={handleOnChangeFeedback}
                   required

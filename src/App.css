@@ -31,7 +31,7 @@ body {
 }
 
 /* products page styles */
-.shop_banner {
+.title_banner {
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)),
     url(https://wpbingosite.com/wordpress/wrish/wp-content/uploads/2021/09/bg-breadcrumb.jpg);
   background-size: cover;

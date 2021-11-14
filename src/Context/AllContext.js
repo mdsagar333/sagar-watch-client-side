@@ -5,12 +5,13 @@ export const contextAPI = createContext();
 
 const AllContext = ({ children }) => {
   const [watchesData, setWatchesData] = useState([]);
-  const [isDataLoading, setIsDataLoading] = useState(true);
   const [navSize, setNavSize] = useState();
+  const [isDataLoading, setDataLoading] = useState(true);
+  const [blogs, setBlogs] = useState([]);
   const auth = useFirebaseAuth();
 
   useEffect(() => {
-    setIsDataLoading(true);
+    setDataLoading(true);
     fetch("http://127.0.0.1:5000/products")
       .then((res) => res.json())
       .then((data) => {
@@ -20,18 +21,21 @@ const AllContext = ({ children }) => {
         console.log(err);
       })
       .finally(() => {
-        setIsDataLoading(false);
+        setDataLoading(false);
       });
   }, []);
+
   return (
     <contextAPI.Provider
       value={{
         watchesData,
-        isDataLoading,
         ...auth,
         setNavSize,
         navSize,
         setWatchesData,
+        isDataLoading,
+        setBlogs,
+        blogs,
       }}
     >
       {children}

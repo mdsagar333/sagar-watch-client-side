@@ -13,6 +13,7 @@ import useContextAPI from "./Hooks/useContextAPI";
 import PrivateRoute from "./Pages/Shared/PrivateRoute/PrivateRoute";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import Notfound from "./Pages/NotFound/Notfound";
+import BlogDetails from "./Pages/Home/Blogs/Component/BlogDetails";
 
 function App() {
   const { userLoading } = useContextAPI();
@@ -59,6 +60,13 @@ function App() {
           <>
             <Navbar />
             <Products></Products>
+            <Footer />
+          </>
+        </Route>
+        <Route path="/blogs/:id">
+          <>
+            <Navbar />
+            <BlogDetails />
             <Footer />
           </>
         </Route>

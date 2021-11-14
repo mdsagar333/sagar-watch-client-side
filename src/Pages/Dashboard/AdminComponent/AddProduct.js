@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useRef, useState } from "react";
 import productImg from "../../../images/addProduct.png";
 
@@ -13,31 +14,56 @@ const AddProduct = () => {
 
   const handleAddProduct = (e) => {
     e.preventDefault();
-    setIsSavingPro();
+    setIsSavingPro(true);
+    setServerResponse("");
     const feature = featureRef.current.value.split(",");
     const prodcutData = {
       name: nameRef.current.value,
       price: priceRef.current.value,
       brand: brandRef.current.value,
-      image: imageRef.current.value,
+      image: imageRef.current.files[0],
       description: descriptionRef.current.value,
       feature,
     };
-    fetch("http://127.0.0.1:5000/products", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ ...prodcutData }),
-    })
-      .then((res) => res.json())
+
+    let formData = new FormData();
+
+    formData.append("name", prodcutData.name);
+    formData.append("price", prodcutData.price);
+    formData.append("brand", prodcutData.brand);
+    formData.append("image", prodcutData.image);
+    formData.append("description", prodcutData.description);
+    formData.append("feature", JSON.stringify(prodcutData.feature));
+
+    axios
+      .post("http://127.0.0.1:5000/products", formData, {
+        headers: { "content-type": "multipart/form-data" },
+      })
       .then((data) => {
         console.log(data);
-        setServerResponse("Product added successfully");
+      })
+      .catch((err) => {
+        console.log(err);
       })
       .finally(() => {
         setIsSavingPro(false);
+        setServerResponse("Product added successfully");
       });
+    // fetch("http://127.0.0.1:5000/products", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "aplication/json",
+    //   },
+    //   body: JSON.stringify({ ...prodcutData }),
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //     setServerResponse("Product added successfully");
+    //   })
+    //   .finally(() => {
+    //     setIsSavingPro(false);
+    //   });
   };
   return (
     <div className="addProduct_container">
@@ -47,7 +73,7 @@ const AddProduct = () => {
             <h1>Add a Product</h1>
             <form onSubmit={handleAddProduct}>
               {serverResponse !== "" ? (
-                <p className="text-success">{serverResponse}</p>
+                <p className="alert alert-success">{serverResponse}</p>
               ) : null}
               <div className="row">
                 <div className="col-12 col-md-6">
@@ -113,7 +139,7 @@ const AddProduct = () => {
                   Image
                 </label>
                 <input
-                  type="text"
+                  type="file"
                   className="form-control"
                   id="imageID"
                   placeholder="Image link"
