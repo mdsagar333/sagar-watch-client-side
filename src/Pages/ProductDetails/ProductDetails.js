@@ -84,17 +84,14 @@ const ProductDetails = () => {
               <div className="col-6">
                 <button
                   className="btn btn-dark p-3 text-uppercase"
-                  onClick={() => console.log("add to cart")}
+                  onClick={() => handleAddToCart(_id)}
                 >
                   Add to cart
                 </button>
               </div>
             </div>
           </div>
-          <Link
-            to={`/place-order/${_id}/${qnt}`}
-            onClick={() => addItemInCart(_id, qnt)}
-          >
+          <Link to={`/place-order/${_id}/${qnt}`}>
             <button className="btn mt-3 text-uppercase fw-bold btn-outline-dark w-100 p-3">
               buy now
             </button>
