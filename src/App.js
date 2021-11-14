@@ -14,6 +14,7 @@ import PrivateRoute from "./Pages/Shared/PrivateRoute/PrivateRoute";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import Notfound from "./Pages/NotFound/Notfound";
 import BlogDetails from "./Pages/Home/Blogs/Component/BlogDetails";
+import ShippingCart from "./Pages/ShippingCart/ShippingCart";
 
 function App() {
   const { userLoading } = useContextAPI();
@@ -28,6 +29,7 @@ function App() {
             <Footer />
           </>
         </Route>
+
         <Route path="/home">
           <>
             <Navbar />
@@ -35,6 +37,7 @@ function App() {
             <Footer />
           </>
         </Route>
+
         <Route path="/about-us">
           <>
             <Navbar />
@@ -42,6 +45,7 @@ function App() {
             <Footer />
           </>
         </Route>
+
         <Route path="/login">
           <>
             <Navbar />
@@ -49,6 +53,7 @@ function App() {
             <Footer />
           </>
         </Route>
+
         <Route path="/register">
           <>
             <Navbar />
@@ -56,6 +61,7 @@ function App() {
             <Footer />
           </>
         </Route>
+
         <Route exact path="/products">
           <>
             <Navbar />
@@ -63,6 +69,7 @@ function App() {
             <Footer />
           </>
         </Route>
+
         <Route path="/blogs/:id">
           <>
             <Navbar />
@@ -70,6 +77,7 @@ function App() {
             <Footer />
           </>
         </Route>
+
         <PrivateRoute path="/product/:id">
           <>
             <Navbar />
@@ -77,6 +85,7 @@ function App() {
             <Footer />
           </>
         </PrivateRoute>
+
         <PrivateRoute path="/place-order/:productId/:qty">
           <>
             <Navbar />
@@ -85,9 +94,16 @@ function App() {
           </>
         </PrivateRoute>
 
+        <PrivateRoute path="/place-order-cart">
+          <Navbar />
+          <ShippingCart />
+          <Footer />
+        </PrivateRoute>
+
         <PrivateRoute path="/dashboard">
           <Dashboard></Dashboard>
         </PrivateRoute>
+
         <Route path="*">
           <>
             <Navbar />

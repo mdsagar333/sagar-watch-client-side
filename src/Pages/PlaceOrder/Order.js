@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import useContextAPI from "../../Hooks/useContextAPI";
-import orderImg from "../../images/order_confirm.png";
+import OrderForm from "../Shared/OrderForm/OrderForm";
 import Spinner from "../Shared/Spinner/Spinner";
 import Cart from "./Components/Cart";
 
 const Order = () => {
-  const { user, isDataLoading, userLoading } = useContextAPI();
-  const { watchesData } = useContextAPI();
+  const { user, isDataLoading, userLoading, watchesData } = useContextAPI();
   const { productId, qty } = useParams();
   const [userInfo, setUserInfo] = useState({ name: "", email: "" });
   const [isConfirmLoading, setIsConfirmLoading] = useState(false);
@@ -66,7 +65,14 @@ const Order = () => {
       <div className="container">
         <div className="row">
           <div className="col-12 col-md-6">
-            <form onSubmit={handleOrder}>
+            <OrderForm
+              handleOrder={handleOrder}
+              isOrderPlaced={isOrderPlaced}
+              handleChange={handleChange}
+              userInfo={userInfo}
+              isConfirmLoading={isConfirmLoading}
+            />
+            {/* <form onSubmit={handleOrder}>
               {isOrderPlaced.length > 0 ? (
                 <p className="alert alert-success">{isOrderPlaced}</p>
               ) : null}
@@ -149,10 +155,9 @@ const Order = () => {
                   "Confirm Order"
                 )}
               </button>
-            </form>
+            </form> */}
           </div>
           <div className="col-12 col-md-6">
-            {/* <img src={orderImg} alt="" className="img-fluid" /> */}
             <Cart {...cartProduct} />
           </div>
         </div>

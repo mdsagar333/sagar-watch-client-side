@@ -7,7 +7,6 @@ const AllContext = ({ children }) => {
   const [watchesData, setWatchesData] = useState([]);
   const [navSize, setNavSize] = useState();
   const [isDataLoading, setDataLoading] = useState(true);
-  const [blogs, setBlogs] = useState([]);
   const auth = useFirebaseAuth();
 
   useEffect(() => {
@@ -34,8 +33,6 @@ const AllContext = ({ children }) => {
         navSize,
         setWatchesData,
         isDataLoading,
-        setBlogs,
-        blogs,
       }}
     >
       {children}

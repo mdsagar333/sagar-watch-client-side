@@ -2,11 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import Logo from "../Logo/Logo";
 import { Link } from "react-router-dom";
 import useContextAPI from "../../../Hooks/useContextAPI";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 
 const Navbar = () => {
   const { user, logout, setNavSize } = useContextAPI();
   const navRef = useRef();
-  const [navHeight, setNavHeight] = useState();
 
   useEffect(() => {
     console.log(navRef.current.offsetHeight);
@@ -70,6 +70,11 @@ const Navbar = () => {
                 </Link>
               </li>
             )}
+            <li className="nav-item">
+              <Link className="nav-link active fw-bold" to="/place-order-cart">
+                <AiOutlineShoppingCart style={{ fontSize: "22px" }} />
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
