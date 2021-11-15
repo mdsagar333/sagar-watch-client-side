@@ -129,7 +129,7 @@ body {
 }
 
 .review_container {
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)),
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)),
     url(https://i.ibb.co/BzfDLq8/testimonial-bg-cp.jpg);
   background-color: rgba(0, 0, 0, 0);
   background-position-x: 0%, 0%;

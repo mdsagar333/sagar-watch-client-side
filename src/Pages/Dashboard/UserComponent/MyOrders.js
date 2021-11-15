@@ -11,21 +11,17 @@ const MyOrders = () => {
   const [showModal, setShowModal] = useState(false);
 
   const handleItemDelete = (id) => {
-    console.log(id);
     setItemToDelete(id);
     setShowModal(true);
   };
 
   const confirmDeleteItem = () => {
     const url = `http://127.0.0.1:5000/orders/${itemToDelete}/${user.uid}`;
-    console.log(url);
     fetch(url, {
       method: "DELETE",
     })
       .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      })
+      .then((data) => {})
       .finally(() => {
         setLoadData(loadData + 1);
         setShowModal(false);
@@ -36,11 +32,9 @@ const MyOrders = () => {
     if (user) {
       setOrderIsLoading(true);
       const url = `http://127.0.0.1:5000/orders/${user.uid}`;
-      console.log(url);
       fetch(url)
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           setMyOrders(data.allOrders);
         })
         .finally(() => {
@@ -57,7 +51,7 @@ const MyOrders = () => {
     <div>
       <h1 className="text-center mb-4">My orders</h1>
       <table className="table">
-        <thead>
+        <thead className="table-dark">
           <tr>
             <th scope="col">#</th>
             <th scope="col">Product Name</th>

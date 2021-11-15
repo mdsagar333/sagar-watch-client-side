@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import useContextAPI from "../../../Hooks/useContextAPI";
 import Spinner from "../../Shared/Spinner/Spinner";
 import BlogCard from "./Component/BlogCard";
 
@@ -7,7 +6,6 @@ const BlogContainer = () => {
   const [allBlogs, setAllBlogs] = useState([]);
   const [isBlogLoading, setIsBlogLoading] = useState(true);
 
-  console.log(allBlogs);
   useEffect(() => {
     setIsBlogLoading(true);
     fetch("http://127.0.0.1:5000/blogs")
@@ -21,8 +19,8 @@ const BlogContainer = () => {
   }, []);
 
   return (
-    <div className="container">
-      <div className="blog_title text-center my-5">
+    <div className="container mb-4">
+      <div className="blog_title text-center my-5 ">
         <h5 className="text-uppercase custom_letter_spacing mb-0">
           Time is precious Check out now
         </h5>
@@ -33,8 +31,8 @@ const BlogContainer = () => {
       ) : (
         <div className="blog_container">
           <div className="row g-3">
-            {allBlogs.map((blog) => (
-              <BlogCard key={blog._id} {...blog} />
+            {allBlogs.map((blog, index) => (
+              <BlogCard key={blog._id} {...blog} index={index} />
             ))}
           </div>
         </div>

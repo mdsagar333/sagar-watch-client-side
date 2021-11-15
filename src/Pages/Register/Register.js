@@ -31,7 +31,6 @@ const Register = () => {
       .then((res) => {
         const result = res.user;
         const uid = result.uid;
-        console.log(uid, "google sign in");
         fetch("http://127.0.0.1:5000/users", {
           method: "PATCH",
           headers: {
@@ -44,12 +43,10 @@ const Register = () => {
           }),
         })
           .then((res) => res.json())
-          .then((data) => console.log(data));
+          .then((data) => {});
         history.push(redirectURL);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
   return (
     <div>
@@ -149,7 +146,7 @@ const Register = () => {
                           >
                             {userLoading ? (
                               <span
-                                class="spinner-border spinner-border-sm"
+                                className="spinner-border spinner-border-sm"
                                 role="status"
                                 aria-hidden="true"
                               ></span>

@@ -36,8 +36,8 @@ const BestProducts = () => {
       </div>
       <section className="products-container container">
         <div className="row g-4">
-          {bestProducts.map((watch) => (
-            <Product key={watch._id} {...watch} />
+          {bestProducts.map((watch, index) => (
+            <Product key={watch._id} {...watch} index={index} />
           ))}
         </div>
       </section>

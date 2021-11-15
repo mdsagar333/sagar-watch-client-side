@@ -18,9 +18,7 @@ const AllContext = ({ children }) => {
       .then((data) => {
         setWatchesData(data.products);
       })
-      .catch((err) => {
-        console.log(err);
-      })
+      .catch((err) => {})
       .finally(() => {
         setDataLoading(false);
       });

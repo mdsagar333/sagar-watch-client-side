@@ -69,7 +69,7 @@ const ProductDetails = () => {
           </div>
           <div className="product_btn_handler_container">
             <div className="row">
-              <div className="col-4">
+              <div className="col-5">
                 <div className="d-flex align-items-center border p-1">
                   <span className="me-1 btn" onClick={() => handleIncrease(-1)}>
                     <AiFillMinusSquare className="quntity_btn" />
@@ -85,9 +85,9 @@ const ProductDetails = () => {
                   </span>
                 </div>
               </div>
-              <div className="col-6">
+              <div className="col-7">
                 <button
-                  className="btn btn-dark p-3 text-uppercase"
+                  className="btn btn-dark p-3 text-uppercase mx-3"
                   onClick={() => handleAddToCart(_id)}
                 >
                   Add to cart

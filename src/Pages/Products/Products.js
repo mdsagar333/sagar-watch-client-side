@@ -32,8 +32,8 @@ const Products = () => {
           <Spinner></Spinner>
         ) : (
           <div className="row g-4">
-            {allProdcuts.map((product) => (
-              <Product key={product._id} {...product}></Product>
+            {allProdcuts.map((product, index) => (
+              <Product key={product._id} {...product} index={index}></Product>
             ))}
           </div>
         )}

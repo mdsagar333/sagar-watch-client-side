@@ -9,7 +9,6 @@ const Navbar = () => {
   const navRef = useRef();
 
   useEffect(() => {
-    console.log(navRef.current.offsetHeight);
     setNavSize(navRef.current.offsetHeight);
   });
 

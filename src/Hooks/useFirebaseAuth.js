@@ -40,7 +40,6 @@ const useFirebaseAuth = () => {
         // updating user name
         updateProfile(auth.currentUser, { displayName: name })
           .then(() => {
-            console.log("profile update");
             fetch("http://127.0.0.1:5000/users", {
               method: "POST",
               headers: {
@@ -55,7 +54,6 @@ const useFirebaseAuth = () => {
             });
           })
           .catch((err) => {
-            console.log(err);
             setAuthErrorRegister(err.message);
           });
 
@@ -63,7 +61,6 @@ const useFirebaseAuth = () => {
         history.replace("/");
       })
       .catch((err) => {
-        console.log(err);
         setAuthError(err.message);
       })
       .finally(() => {
@@ -91,9 +88,7 @@ const useFirebaseAuth = () => {
       .then(() => {
         console.log("logout successful");
       })
-      .catch((err) => {
-        console.log(err);
-      })
+      .catch((err) => {})
       .finally(() => {
         setUserLoading(false);
       });

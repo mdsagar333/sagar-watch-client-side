@@ -60,7 +60,7 @@ const ManageAllOrders = () => {
           <Spinner />
         ) : (
           <table className="table">
-            <thead>
+            <thead class="table-dark">
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Product Name</th>

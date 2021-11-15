@@ -9,7 +9,8 @@ const OrderForm = (props) => {
     isConfirmLoading,
   } = props;
   return (
-    <div>
+    <div className="mb-4">
+      <h3 className="text-capitalize mb-4">Billing address</h3>
       <form onSubmit={handleOrder}>
         {isOrderPlaced.length > 0 ? (
           <p className="alert alert-success">{isOrderPlaced}</p>
@@ -82,7 +83,7 @@ const OrderForm = (props) => {
             onChange={handleChange}
           />
         </div>
-        <button className="btn btn-outline-dark custom_btn w-100 mt-3">
+        <button className="btn btn-outline-dark w-100 mt-3">
           {isConfirmLoading ? (
             <span
               className="spinner-border spinner-border-sm"

@@ -14,8 +14,8 @@ const ProductCart = (props) => {
           {products.length < 1 ? (
             <h4>There is no product in cart.</h4>
           ) : (
-            <table className="table">
-              <thead>
+            <table className="table table-striped table-hover">
+              <thead class="table-dark">
                 <tr>
                   <th scope="col">Product</th>
                   <th scope="col">Qty</th>
@@ -40,8 +40,7 @@ const ProductCart = (props) => {
                       <small>{item.productQuantity}</small>
                     </td>
                     <td>
-                      {" "}
-                      <small>{item.productPrice}</small>{" "}
+                      <small>{item.productPrice}</small>
                     </td>
                     <td>
                       <small>

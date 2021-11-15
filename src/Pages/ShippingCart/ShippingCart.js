@@ -34,7 +34,6 @@ const ShippingCart = () => {
 
   const handleOrder = (e) => {
     e.preventDefault();
-    console.log("cart order");
     setIsConfirmLoading(true);
     setIsOrderPlaced("");
     const orderedProduct = cartProduct.map((product) => {
@@ -53,7 +52,6 @@ const ShippingCart = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.status === "success") {
           setIsOrderPlaced("You order has been confirmed.");
           clearDB();

@@ -1,10 +1,10 @@
 const firebaseConfig = {
-  apiKey: "AIzaSyCLJXycJlwrIZDrXueYXY3pRXr1Cpn6Odo",
-  authDomain: "sagar-watches-authentication.firebaseapp.com",
-  projectId: "sagar-watches-authentication",
-  storageBucket: "sagar-watches-authentication.appspot.com",
-  messagingSenderId: "553589189402",
-  appId: "1:553589189402:web:a0b93b3195fb25f8bf5aa3",
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSENGING_SENDER_ID,
+  appId: process.env.REACT_APP,
 };
 
 export default firebaseConfig;
