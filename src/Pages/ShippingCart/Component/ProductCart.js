@@ -5,7 +5,7 @@ const ProductCart = (props) => {
   const { products } = { ...props };
   const { deleteCartItem } = props;
   const { showAction } = props;
-  console.log(products);
+
   return (
     <div className="product_cart_container">
       <div className="container">

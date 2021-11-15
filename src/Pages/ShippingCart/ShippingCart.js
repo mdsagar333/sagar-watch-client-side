@@ -19,7 +19,7 @@ const ShippingCart = () => {
   const [isOrderPlaced, setIsOrderPlaced] = useState("");
   const [cartProduct, setCartProduct] = useState([]);
   const [productLists, setProductLists] = useState(getDB());
-  const [isCartLoading, setIsCartLoading] = useState(true);
+  const [isCartLoading, setIsCartLoading] = useState(false);
 
   const deleteCartItem = (id) => {
     removeFromCart(id);
