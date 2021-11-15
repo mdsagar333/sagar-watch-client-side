@@ -45,7 +45,7 @@ const Testimonial = () => {
   };
   useEffect(() => {
     setIsReviewLoading(true);
-    fetch("http://127.0.0.1:5000/reviews")
+    fetch("https://fierce-bastion-00988.herokuapp.com/reviews")
       .then((res) => res.json())
       .then((data) => {
         setAllReviews(data.reviews);

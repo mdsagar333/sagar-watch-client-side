@@ -16,7 +16,7 @@ const ManageAllOrders = () => {
 
   const handleConfirmAction = () => {
     setShowModal(false);
-    const url = `http://127.0.0.1:5000/orders/${confirmAction.id}`;
+    const url = `https://fierce-bastion-00988.herokuapp.com/orders/${confirmAction.id}`;
     if (confirmAction.action === "update") {
       fetch(url, {
         method: "PATCH",
@@ -46,7 +46,7 @@ const ManageAllOrders = () => {
 
   useEffect(() => {
     setOrderIsLoadin(true);
-    fetch("http://127.0.0.1:5000/orders")
+    fetch("https://fierce-bastion-00988.herokuapp.com/orders")
       .then((res) => res.json())
       .then((data) => setAllOrders(data.allOrders))
       .finally(() => setOrderIsLoadin(false));

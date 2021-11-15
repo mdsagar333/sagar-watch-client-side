@@ -15,7 +15,7 @@ const MakeAdmin = () => {
   const handleMakeAdmin = (e) => {
     e.preventDefault();
     setAdminLoading(true);
-    fetch("http://127.0.0.1:5000/users/admin", {
+    fetch("https://fierce-bastion-00988.herokuapp.com/users/admin", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -36,7 +36,7 @@ const MakeAdmin = () => {
   };
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/users")
+    fetch("https://fierce-bastion-00988.herokuapp.com/users")
       .then((res) => res.json())
       .then((data) => setAllUsers(data.users));
   }, [isNeedToUpdate]);

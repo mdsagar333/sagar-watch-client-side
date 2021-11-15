@@ -10,7 +10,7 @@ const BlogDetails = () => {
 
   useEffect(() => {
     setIsBlogLoading(true);
-    const url = `http://127.0.0.1:5000/blogs/${id}`;
+    const url = `https://fierce-bastion-00988.herokuapp.com/blogs/${id}`;
     fetch(url)
       .then((res) => res.json())
       .then((data) => {

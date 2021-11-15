@@ -42,7 +42,7 @@ const Order = () => {
     e.preventDefault();
     setIsConfirmLoading(true);
     setIsOrderPlaced("");
-    fetch("http://127.0.0.1:5000/orders", {
+    fetch("https://fierce-bastion-00988.herokuapp.com/orders", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

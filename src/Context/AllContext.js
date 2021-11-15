@@ -13,7 +13,7 @@ const AllContext = ({ children }) => {
 
   useEffect(() => {
     setDataLoading(true);
-    fetch("http://127.0.0.1:5000/products")
+    fetch("https://fierce-bastion-00988.herokuapp.com/products")
       .then((res) => res.json())
       .then((data) => {
         setWatchesData(data.products);

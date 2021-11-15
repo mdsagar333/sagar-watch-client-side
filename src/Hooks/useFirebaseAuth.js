@@ -40,7 +40,7 @@ const useFirebaseAuth = () => {
         // updating user name
         updateProfile(auth.currentUser, { displayName: name })
           .then(() => {
-            fetch("http://127.0.0.1:5000/users", {
+            fetch("https://fierce-bastion-00988.herokuapp.com/users", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -118,7 +118,9 @@ const useFirebaseAuth = () => {
 
   useEffect(() => {
     if (user) {
-      fetch(`http://127.0.0.1:5000/users/admin/${user.uid}`)
+      fetch(
+        `https://fierce-bastion-00988.herokuapp.com/users/admin/${user.uid}`
+      )
         .then((res) => res.json())
         .then((data) => setAdmin(data.isAdmin));
     }

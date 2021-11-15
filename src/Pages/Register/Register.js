@@ -31,7 +31,7 @@ const Register = () => {
       .then((res) => {
         const result = res.user;
         const uid = result.uid;
-        fetch("http://127.0.0.1:5000/users", {
+        fetch("https://fierce-bastion-00988.herokuapp.com/users", {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",

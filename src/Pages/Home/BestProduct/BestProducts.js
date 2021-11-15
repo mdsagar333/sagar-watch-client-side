@@ -9,7 +9,7 @@ const BestProducts = () => {
 
   useEffect(() => {
     setProductLoading(true);
-    fetch("http://127.0.0.1:5000/products?limit=6")
+    fetch("https://fierce-bastion-00988.herokuapp.com/products?limit=6")
       .then((res) => res.json())
       .then((data) => {
         setBestProducts(data.products);

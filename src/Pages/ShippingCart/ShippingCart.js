@@ -43,7 +43,7 @@ const ShippingCart = () => {
       return newProduct;
     });
 
-    fetch("http://127.0.0.1:5000/cart-orders", {
+    fetch("https://fierce-bastion-00988.herokuapp.com/cart-orders", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -78,7 +78,7 @@ const ShippingCart = () => {
   useEffect(() => {
     if (productLists !== null) {
       const arrProducts = Object.keys(productLists);
-      fetch("http://127.0.0.1:5000/product-selected", {
+      fetch("https://fierce-bastion-00988.herokuapp.com/product-selected", {
         method: "POST",
         headers: {
           "Content-type": "application/json",

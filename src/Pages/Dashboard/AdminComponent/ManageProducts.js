@@ -20,7 +20,7 @@ const ManageProducts = () => {
   const handleConfirmAction = () => {
     setShowModal(false);
     setServerResponse("");
-    const url = `http://127.0.0.1:5000/products/${confirmId}`;
+    const url = `https://fierce-bastion-00988.herokuapp.com/products/${confirmId}`;
     fetch(url, {
       method: "DELETE",
       headers: {
@@ -41,7 +41,7 @@ const ManageProducts = () => {
 
   useEffect(() => {
     setProductLoading(true);
-    fetch("http://127.0.0.1:5000/products")
+    fetch("https://fierce-bastion-00988.herokuapp.com/products")
       .then((res) => res.json())
       .then((data) => {
         setProducts(data.products);

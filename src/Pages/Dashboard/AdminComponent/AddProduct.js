@@ -36,7 +36,7 @@ const AddProduct = () => {
     formData.append("feature", JSON.stringify(prodcutData.feature));
 
     axios
-      .post("http://127.0.0.1:5000/products", formData, {
+      .post("https://fierce-bastion-00988.herokuapp.com/products", formData, {
         headers: { "content-type": "multipart/form-data" },
       })
       .then((data) => {
@@ -49,21 +49,6 @@ const AddProduct = () => {
         setIsSavingPro(false);
         setServerResponse("Product added successfully");
       });
-    // fetch("http://127.0.0.1:5000/products", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "aplication/json",
-    //   },
-    //   body: JSON.stringify({ ...prodcutData }),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //     setServerResponse("Product added successfully");
-    //   })
-    //   .finally(() => {
-    //     setIsSavingPro(false);
-    //   });
   };
   return (
     <div className="addProduct_container">

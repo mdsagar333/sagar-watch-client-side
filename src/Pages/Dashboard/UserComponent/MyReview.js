@@ -24,7 +24,7 @@ const MyReview = () => {
 
     setSavingReview(true);
 
-    fetch("http://127.0.0.1:5000/reviews", {
+    fetch("https://fierce-bastion-00988.herokuapp.com/reviews", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -16,7 +16,7 @@ const MyOrders = () => {
   };
 
   const confirmDeleteItem = () => {
-    const url = `http://127.0.0.1:5000/orders/${itemToDelete}/${user.uid}`;
+    const url = `https://fierce-bastion-00988.herokuapp.com/orders/${itemToDelete}/${user.uid}`;
     fetch(url, {
       method: "DELETE",
     })
@@ -31,7 +31,7 @@ const MyOrders = () => {
   useEffect(() => {
     if (user) {
       setOrderIsLoading(true);
-      const url = `http://127.0.0.1:5000/orders/${user.uid}`;
+      const url = `https://fierce-bastion-00988.herokuapp.com/orders/${user.uid}`;
       fetch(url)
         .then((res) => res.json())
         .then((data) => {
