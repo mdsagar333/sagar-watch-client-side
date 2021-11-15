@@ -33,6 +33,7 @@ export const clearDB = () => {
 
 export const removeFromCart = (id) => {
   const cart = getDB();
-  delete cart(id);
+  console.log(cart);
+  delete cart[id];
   setDB(cart);
 };

@@ -3,7 +3,7 @@ import { AiTwotoneDelete } from "react-icons/ai";
 import useContextAPI from "../../../Hooks/useContextAPI";
 import Spinner from "../../Shared/Spinner/Spinner";
 const MyOrders = () => {
-  const { user } = useContextAPI();
+  const { user, userLoading } = useContextAPI();
   const [orderIsLoading, setOrderIsLoading] = useState(false);
   const [myOrders, setMyOrders] = useState([]);
   const [itemToDelete, setItemToDelete] = useState("");
@@ -17,7 +17,9 @@ const MyOrders = () => {
   };
 
   const confirmDeleteItem = () => {
-    fetch(`http://127.0.0.1:5000/orders/${itemToDelete}`, {
+    const url = `http://127.0.0.1:5000/orders/${itemToDelete}/${user.uid}`;
+    console.log(url);
+    fetch(url, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -47,7 +49,7 @@ const MyOrders = () => {
     }
   }, [loadData]);
 
-  if (orderIsLoading) {
+  if (orderIsLoading || userLoading) {
     return <Spinner />;
   }
 

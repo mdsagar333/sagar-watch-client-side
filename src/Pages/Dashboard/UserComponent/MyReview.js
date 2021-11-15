@@ -31,7 +31,9 @@ const MyReview = () => {
       },
       body: JSON.stringify({
         ...userFeedback,
-        userName: user.email || user.uid,
+        userPhoto:
+          user.photoURL ||
+          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
       }),
     })
       .then((res) => res.json())
@@ -111,6 +113,7 @@ const MyReview = () => {
                   name="rating"
                   value={userFeedback.rating}
                   onChange={handleOnChangeFeedback}
+                  step="any"
                   required
                 />
               </div>

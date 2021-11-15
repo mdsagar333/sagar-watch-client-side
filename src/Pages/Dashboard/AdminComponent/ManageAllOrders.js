@@ -30,7 +30,12 @@ const ManageAllOrders = () => {
           setIsNeedToUpdate(isNeedToUpdate + 1);
         });
     } else if (confirmAction.action === "delete") {
-      fetch(url)
+      fetch(url, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
         .then((res) => res.json())
         .then((data) => console.log(data))
         .finally(() => {

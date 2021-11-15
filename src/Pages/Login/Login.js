@@ -111,7 +111,7 @@ const Login = () => {
                         <div className="d-flex justify-content-center mb-3 mb-lg-4">
                           <button
                             type="submit"
-                            className="btn btn-outline-dark custom_btn w-100"
+                            className="btn btn-outline-dark w-100"
                           >
                             {userLoading ? (
                               <span

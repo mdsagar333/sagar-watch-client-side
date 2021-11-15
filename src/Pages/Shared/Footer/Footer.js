@@ -118,7 +118,7 @@ const Footer = () => {
       </section>
       <section className="footer-bottom bg-dark text-light p-2">
         <p className="text-center text-capitalize mb-0">
-          copyrights &copy; 2021. This sites developed by Mohammed Sagar Ali.
+          copyrights &copy; 2021. This site developed by Mohammed Sagar Ali.
         </p>
       </section>
     </footer>

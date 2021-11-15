@@ -32,6 +32,7 @@ import MakeAdmin from "./AdminComponent/MakeAdmin";
 import useContextAPI from "../../Hooks/useContextAPI";
 import Spinner from "../Shared/Spinner/Spinner";
 import ManageProducts from "./AdminComponent/ManageProducts";
+import AdminPrivateRoute from "../Shared/AdminPrivate/AdminPrivate";
 
 const Dashboard = () => {
   const { user, userLoading, admin, dashBoardLogOut } = useContextAPI();
@@ -230,18 +231,18 @@ const Dashboard = () => {
           </Route>
 
           {/* admin component */}
-          <Route path={`${path}/manage-all-orders`}>
+          <AdminPrivateRoute path={`${path}/manage-all-orders`}>
             <ManageAllOrders />
-          </Route>
-          <Route path={`${path}/add-product`}>
+          </AdminPrivateRoute>
+          <AdminPrivateRoute path={`${path}/add-product`}>
             <AddProduct />
-          </Route>
-          <Route path={`${path}/make-admin`}>
+          </AdminPrivateRoute>
+          <AdminPrivateRoute path={`${path}/make-admin`}>
             <MakeAdmin />
-          </Route>
-          <Route path={`${path}/manage-product`}>
+          </AdminPrivateRoute>
+          <AdminPrivateRoute path={`${path}/manage-product`}>
             <ManageProducts />
-          </Route>
+          </AdminPrivateRoute>
         </Switch>
       </div>
     </div>

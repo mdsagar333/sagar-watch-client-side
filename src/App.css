@@ -15,13 +15,13 @@ body {
 }
 
 .custom_base_color {
-  color: #a07a4a;
+  color: #bd884a;
 }
 
 .btn_custom {
   border: 1px solid #bfb5b5;
   transition: all 0.6s;
-  color: #a07a4a;
+  color: #bd884a;
   background-color: transparent;
 }
 
@@ -105,4 +105,46 @@ body {
   width: 80%;
   display: flex;
   justify-content: center;
+}
+
+.custom_cart_amount {
+}
+
+/* slider styles */
+.slider_item {
+  background-color: #fff;
+  border: 2px solid #ccc;
+  margin: 0 5px;
+  min-height: 350px;
+}
+
+.custom_btn {
+  border-color: #bd884a;
+  color: #fff;
+}
+
+.custom_btn:hover {
+  background-color: #bd884a;
+  color: #fff;
+}
+
+.review_container {
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)),
+    url(https://i.ibb.co/BzfDLq8/testimonial-bg-cp.jpg);
+  background-color: rgba(0, 0, 0, 0);
+  background-position-x: 0%, 0%;
+  background-position-y: 0%, 0%;
+  background-attachment: scroll, scroll;
+  background-size: auto, auto;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.custom_watch_card {
+  box-shadow: 2px 4px 10px #ccc;
+}
+
+.custom_blog_card {
+  box-shadow: 2px 4px 6px #ccc;
 }

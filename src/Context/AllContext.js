@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 import useFirebaseAuth from "../Hooks/useFirebaseAuth";
+import { getDB } from "../utils/utils";
 
 export const contextAPI = createContext();
 
@@ -8,6 +9,7 @@ const AllContext = ({ children }) => {
   const [navSize, setNavSize] = useState();
   const [isDataLoading, setDataLoading] = useState(true);
   const auth = useFirebaseAuth();
+  const [cartLength, setCartLength] = useState(0);
 
   useEffect(() => {
     setDataLoading(true);
@@ -24,6 +26,17 @@ const AllContext = ({ children }) => {
       });
   }, []);
 
+  useEffect(() => {
+    const cart = getDB();
+    let len;
+    if (cart) {
+      len = Object.keys(cart).length;
+    } else {
+      len = 0;
+    }
+    setCartLength(len);
+  }, []);
+
   return (
     <contextAPI.Provider
       value={{
@@ -33,6 +46,8 @@ const AllContext = ({ children }) => {
         navSize,
         setWatchesData,
         isDataLoading,
+        cartLength,
+        setCartLength,
       }}
     >
       {children}

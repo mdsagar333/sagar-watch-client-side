@@ -145,7 +145,7 @@ const Register = () => {
                         <div className="d-flex justify-content-center  mb-3 mb-lg-4">
                           <button
                             type="submit"
-                            className="btn btn-outline-dark w-100 custom_btn"
+                            className="btn btn-outline-dark w-100"
                           >
                             {userLoading ? (
                               <span

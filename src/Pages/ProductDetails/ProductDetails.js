@@ -4,18 +4,22 @@ import { AiFillPlusSquare, AiFillMinusSquare } from "react-icons/ai";
 import useContextAPI from "../../Hooks/useContextAPI";
 import Spinner from "../Shared/Spinner/Spinner";
 import { Link } from "react-router-dom";
-import { addItemInCart } from "../../utils/utils";
+import { addItemInCart, getDB } from "../../utils/utils";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const [qnt, setQnt] = useState(1);
-  const { watchesData, userLoading, isDataLoading } = useContextAPI();
+  const [cartNotification, setCartNotification] = useState("");
+  const { watchesData, userLoading, isDataLoading, setCartLength } =
+    useContextAPI();
 
   const filteredProduct = watchesData.find((product) => product._id === id);
 
   const handleAddToCart = (id) => {
-    console.log(id);
+    setCartNotification("Poduct added to cart.");
     addItemInCart(id, qnt);
+    const cart = getDB();
+    setCartLength(Object.keys(cart).length);
   };
 
   const handleIncrease = (num) => {
@@ -91,6 +95,11 @@ const ProductDetails = () => {
               </div>
             </div>
           </div>
+          {cartNotification.length > 0 && (
+            <p className="alert alert-success mt-2 p-2 text-center">
+              {cartNotification}
+            </p>
+          )}
           <Link to={`/place-order/${_id}/${qnt}`}>
             <button className="btn mt-3 text-uppercase fw-bold btn-outline-dark w-100 p-3">
               buy now

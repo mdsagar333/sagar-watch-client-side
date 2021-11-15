@@ -3,7 +3,8 @@ import { useParams } from "react-router";
 import useContextAPI from "../../Hooks/useContextAPI";
 import OrderForm from "../Shared/OrderForm/OrderForm";
 import Spinner from "../Shared/Spinner/Spinner";
-import Cart from "./Components/Cart";
+import CartTotal from "../ShippingCart/Component/CartTotal";
+import ProductCart from "../ShippingCart/Component/ProductCart";
 
 const Order = () => {
   const { user, isDataLoading, userLoading, watchesData } = useContextAPI();
@@ -23,7 +24,15 @@ const Order = () => {
   }
   const product = watchesData.find((item) => item._id === productId);
   const { name, image, price, _id } = product;
-  const cartProduct = { name, image, price, _id, qty };
+  const cartProduct = [
+    {
+      productName: name,
+      productImage: image,
+      productPrice: price,
+      _id,
+      productQuantity: qty,
+    },
+  ];
 
   const handleChange = (e) => {
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
@@ -158,7 +167,8 @@ const Order = () => {
             </form> */}
           </div>
           <div className="col-12 col-md-6">
-            <Cart {...cartProduct} />
+            <ProductCart products={cartProduct} showAction={false} />
+            <CartTotal totalProduct={cartProduct} />
           </div>
         </div>
       </div>
