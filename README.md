@@ -6,7 +6,7 @@
 
 - This website is responsive for medium device and small device
 - This website has authentication and authorization feature. Authentication system implemented using firebase.
-- This wesite has different functionality for normal user and for admin
+- This website has different functionality for normal user and for admin
 - A admin can create a product, make another user admin, mange order
 - User can purchase a product/order product
 - User can see his/her order and if order is not shipped then he/she can cancle/delete the order.

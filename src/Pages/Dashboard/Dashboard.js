@@ -199,8 +199,17 @@ const Dashboard = () => {
 
       {/* dashboar header */}
       <div
-        style={{ height: "75px", fontSize: "40px", backgroundColor: "#297b70" }}
-        className="text-white text-center text-capitalize"
+        style={{
+          height: "75px",
+          fontSize: "40px",
+          backgroundColor: "#297b70",
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 100001,
+        }}
+        className="text-white text-center text-capitalize dashboard_header"
       >
         Dashboard
       </div>

@@ -148,3 +148,9 @@ body {
 .custom_blog_card {
   box-shadow: 2px 4px 6px #ccc;
 }
+
+/* admin form */
+.my-form {
+  z-index: -1;
+  position: relative;
+}

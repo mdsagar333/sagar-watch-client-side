@@ -7,10 +7,11 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 const Navbar = () => {
   const { user, logout, setNavSize, cartLength } = useContextAPI();
   const navRef = useRef();
-
   useEffect(() => {
     setNavSize(navRef.current.offsetHeight);
   });
+
+  console.log(user);
 
   return (
     <nav
@@ -56,14 +57,65 @@ const Navbar = () => {
                     Dashboard
                   </Link>
                 </li>
-                <li className="nav-item">
-                  <button
+                <li className="nav-item d-flex">
+                  {/* dropdown */}
+                  <div className="dropdown ">
+                    <button
+                      className="btn nav-link active fw-bold dropdown-toggle"
+                      type="button"
+                      id="dropdownMenuButton1"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      Account
+                    </button>
+                    <ul
+                      className="dropdown-menu p-2"
+                      aria-labelledby="dropdownMenuButton1"
+                      style={{ left: "-25%" }}
+                    >
+                      <li className="d-flex justify-content-center mb-2">
+                        <img
+                          className="rounded-circle"
+                          src={
+                            user.photoURL ||
+                            "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                          }
+                          style={{ width: "40px" }}
+                        ></img>
+                      </li>
+                      <li className="d-flex justify-content-center">
+                        <span className="text-muted fw-bold text-uppercase">
+                          {user.displayName}
+                        </span>
+                      </li>
+                      <li className="mt-3">
+                        <Link
+                          className="nav-link btn text-dark fw-bold dropdown-item"
+                          to="/account-settings"
+                        >
+                          Account Settings
+                        </Link>
+                      </li>
+                      <li>
+                        <button
+                          className="nav-link btn text-dark fw-bold w-100"
+                          onClick={logout}
+                          to="/login"
+                        >
+                          Logout
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                  {/*end dropdown */}
+                  {/* <button
                     className="nav-link btn active fw-bold"
                     onClick={logout}
                     to="/login"
                   >
                     Logout
-                  </button>
+                  </button> */}
                 </li>
               </div>
             ) : (

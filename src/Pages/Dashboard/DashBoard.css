@@ -2,8 +2,17 @@
   transition: margin 0.2s;
   margin-left: 64px;
   padding: 15px;
+  margin-top: 75px;
 }
 
 .main_content_second {
   margin-left: 240px !important;
+}
+
+.sideNav_container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 10000;
 }

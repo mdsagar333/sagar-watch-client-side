@@ -111,7 +111,7 @@ const ManageProducts = () => {
       )}
       {/* modal */}
       <div className={`${showModal ? "d-block" : "d-none"} custom_modal`}>
-        <div className="d-flex justify-content-center align-items-center">
+        <div className="d-flex justify-content-center align-items-center h-100">
           <div className="modal_content p-3 mt-5">
             <h3>Are you sure? You want to delete?</h3>
             <div className="d-flex justify-content-end">

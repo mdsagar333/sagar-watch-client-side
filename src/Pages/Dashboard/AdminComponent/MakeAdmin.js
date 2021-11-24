@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Spinner from "../../Shared/Spinner/Spinner";
 
 const MakeAdmin = () => {
-  const [adminLoading, setAdminLoading] = useState(false);
+  const [adminLoading, setAdminLoading] = useState(true);
   const [serverResponse, setServerResponse] = useState("");
   const [adminEmail, setAdminEmail] = useState("");
   const [allUsers, setAllUsers] = useState([]);
@@ -38,7 +38,8 @@ const MakeAdmin = () => {
   useEffect(() => {
     fetch("https://fierce-bastion-00988.herokuapp.com/users")
       .then((res) => res.json())
-      .then((data) => setAllUsers(data.users));
+      .then((data) => setAllUsers(data.users))
+      .finally(() => setAdminLoading(false));
   }, [isNeedToUpdate]);
 
   return (
