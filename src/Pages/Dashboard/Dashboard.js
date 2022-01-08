@@ -33,6 +33,7 @@ import useContextAPI from "../../Hooks/useContextAPI";
 import Spinner from "../Shared/Spinner/Spinner";
 import ManageProducts from "./AdminComponent/ManageProducts";
 import AdminPrivateRoute from "../Shared/AdminPrivate/AdminPrivate";
+import CheckoutPayment from "./UserComponent/Payment/CheckoutPayment";
 
 const Dashboard = () => {
   const { user, userLoading, admin, dashBoardLogOut } = useContextAPI();
@@ -230,7 +231,7 @@ const Dashboard = () => {
             <h1>Wellcome to your dashboard</h1>
           </Route> */}
           <Route path={`${path}/payment`}>
-            <h1>Payment feature coming soon</h1>
+            <CheckoutPayment />
           </Route>
           <Route path={`${path}/my-order`}>
             <MyOrders></MyOrders>
