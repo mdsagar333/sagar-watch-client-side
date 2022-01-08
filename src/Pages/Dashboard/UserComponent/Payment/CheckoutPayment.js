@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import useContextAPI from "../../../../Hooks/useContextAPI";
+import Spinner from "../../../Shared/Spinner/Spinner";
 
 const CheckoutPayment = () => {
   const { user, userLoading } = useContextAPI();
@@ -14,9 +16,12 @@ const CheckoutPayment = () => {
       setIsOrderLoading(false);
       setMyOrderHistory(orders.allOrders);
     }
-  }, [user?.uid]);
+  }, []);
 
-  console.log(myOrderHistory);
+  if (isOrderLoading) {
+    return <Spinner />;
+  }
+
   return (
     <div>
       <h1 className="text-center">Payment</h1>
@@ -34,11 +39,19 @@ const CheckoutPayment = () => {
           <tbody>
             {myOrderHistory.map((order, index) => {
               return (
-                <tr>
+                <tr key={order._id}>
                   <th scope="row">{index + 1}</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
+                  <td>{order.productName}</td>
+                  <td>{order.productQuantity}</td>
+                  <td>{order.productPrice}</td>
+                  <td>
+                    <Link
+                      to={`/dashboard/payment/checkout/${order._id}`}
+                      className="btn btn-outline-dark btn-sm"
+                    >
+                      Pay Now
+                    </Link>
+                  </td>
                 </tr>
               );
             })}

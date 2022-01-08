@@ -230,8 +230,11 @@ const Dashboard = () => {
           {/* <Route path={`${path}/home`}>
             <h1>Wellcome to your dashboard</h1>
           </Route> */}
-          <Route path={`${path}/payment`}>
+          <Route exact={true} path={`${path}/payment`}>
             <CheckoutPayment />
+          </Route>
+          <Route path={`${path}/payment/checkout/:id`}>
+            <h1>Check out form</h1>
           </Route>
           <Route path={`${path}/my-order`}>
             <MyOrders></MyOrders>
