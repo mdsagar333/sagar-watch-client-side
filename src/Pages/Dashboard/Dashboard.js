@@ -34,6 +34,8 @@ import Spinner from "../Shared/Spinner/Spinner";
 import ManageProducts from "./AdminComponent/ManageProducts";
 import AdminPrivateRoute from "../Shared/AdminPrivate/AdminPrivate";
 import CheckoutPayment from "./UserComponent/Payment/CheckoutPayment";
+import CheckoutForm from "./UserComponent/Payment/CheckoutForm";
+import Checkout from "./UserComponent/Payment/Checkout";
 
 const Dashboard = () => {
   const { user, userLoading, admin, dashBoardLogOut } = useContextAPI();
@@ -234,7 +236,7 @@ const Dashboard = () => {
             <CheckoutPayment />
           </Route>
           <Route path={`${path}/payment/checkout/:id`}>
-            <h1>Check out form</h1>
+            <Checkout />
           </Route>
           <Route path={`${path}/my-order`}>
             <MyOrders></MyOrders>
